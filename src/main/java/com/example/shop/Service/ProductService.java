@@ -13,7 +13,15 @@ public interface ProductService{
     @Transactional
     public boolean deleteProduct(Product product);
 
+    @Transactional
     public boolean addComment(Long id, String comment);
 
+    @Transactional
     public boolean addLikes(Long id);
+
+    @Transactional
+    public Product getProductById(Long id);
+
+    @Transactional
+    public boolean save(Product product);
 }
