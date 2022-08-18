@@ -1,5 +1,8 @@
 package com.example.shop.Service;
 
+import com.example.shop.DTO.ProductGetDTO;
+import com.example.shop.DTO.ProductListDTO;
+import com.example.shop.DTO.ProductSortedDTO;
 import com.example.shop.Entity.Product;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -8,20 +11,23 @@ import java.util.List;
 public interface ProductService{
 
     @Transactional
-    public List<Product> getListByPredicate(List<String> predicates);
+    List<ProductGetDTO> getOrderList(ProductListDTO productListDTO);
 
     @Transactional
-    public boolean deleteProduct(Product product);
+    boolean deleteProduct(Product product);
 
     @Transactional
-    public boolean addComment(Long id, String comment);
+    boolean addComment(Long id, String comment);
 
     @Transactional
-    public boolean addLikes(Long id);
+    boolean addLikes(Long id);
 
     @Transactional
-    public Product getProductById(Long id);
+    Product getProductById(Long id);
 
     @Transactional
-    public boolean save(Product product);
+    void save(Product product);
+
+    @Transactional
+    List<ProductGetDTO> getSortedListProduct(ProductSortedDTO productSortedDTO);
 }

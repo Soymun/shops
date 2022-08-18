@@ -36,9 +36,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public boolean updateUser(User user) {
-        if(userRepository.save(user) != null){
-            return true;
-        }
-        return false;
+        userRepository.save(user);
+        return true;
     }
 }

@@ -8,12 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 public interface UserService extends UserDetailsService {
 
     @Transactional
-    public User findUserById(Long id);
+    User findUserById(Long id);
 
     @Transactional
-    public User findUserByEmail(String email);
+    User findUserByEmail(String email);
 
     @Transactional
-    public boolean updateUser(User user);
+    boolean updateUser(User user);
 
 }

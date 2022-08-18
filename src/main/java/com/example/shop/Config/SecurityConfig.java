@@ -1,7 +1,6 @@
 package com.example.shop.Config;
 
 
-import com.example.shop.Entity.Permission;
 import com.example.shop.Jwt.JwtTokenConfig;
 import com.example.shop.Jwt.JwtTokenProvider;
 import com.example.shop.Service.Imp.UserServiceImp;
@@ -14,7 +13,6 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
