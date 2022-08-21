@@ -9,6 +9,7 @@ import com.example.shop.Entity.User;
 import com.example.shop.Jwt.JwtTokenProvider;
 import com.example.shop.Service.Imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,7 +29,6 @@ import java.util.Map;
 
 @RestController
 public class AuthController {
-
     private final UserServiceImp userServiceImp;
 
     private final PasswordEncoder passwordEncoder;
