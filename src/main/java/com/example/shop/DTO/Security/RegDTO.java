@@ -1,4 +1,4 @@
-package com.example.shop.DTO;
+package com.example.shop.DTO.Security;
 
 
 import lombok.Data;

@@ -27,6 +27,8 @@ public class Product {
 
     private TypeOfWeight typeOfWeight;
 
+    private TypeOfFood typeOfFood;
+
     private Double calories;
 
     private Long price;

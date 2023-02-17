@@ -1,5 +1,8 @@
 package com.example.shop.Service.Imp;
 
+import com.example.shop.DTO.User.UserCreateDto;
+import com.example.shop.DTO.User.UserDto;
+import com.example.shop.DTO.User.UserUpdateDto;
 import com.example.shop.Entity.User;
 import com.example.shop.Repository.UserRepository;
 import com.example.shop.Service.UserService;
@@ -25,8 +28,8 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public User findUserById(Long id) {
-        return userRepository.findUserById(id).orElseThrow();
+    public UserDto getUserById(Long id) {
+        return null;
     }
 
     @Override
@@ -35,8 +38,17 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public boolean updateUser(User user) {
-        userRepository.save(user);
-        return true;
+    public UserDto updateUser(UserUpdateDto user) {
+        return null;
+    }
+
+    @Override
+    public void saveUser(UserCreateDto user) {
+
+    }
+
+    @Override
+    public void deleteUser(Long id) {
+
     }
 }

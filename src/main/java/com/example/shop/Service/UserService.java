@@ -1,19 +1,22 @@
 package com.example.shop.Service;
 
+import com.example.shop.DTO.User.UserCreateDto;
+import com.example.shop.DTO.User.UserDto;
+import com.example.shop.DTO.User.UserUpdateDto;
 import com.example.shop.Entity.User;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.transaction.annotation.Transactional;
 
 
 public interface UserService extends UserDetailsService {
 
-    @Transactional
-    User findUserById(Long id);
+    UserDto getUserById(Long id);
 
-    @Transactional
     User findUserByEmail(String email);
 
-    @Transactional
-    boolean updateUser(User user);
 
+    UserDto updateUser(UserUpdateDto user);
+
+    void saveUser(UserCreateDto user);
+
+    void deleteUser(Long id);
 }

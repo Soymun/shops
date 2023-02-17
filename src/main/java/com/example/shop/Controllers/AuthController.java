@@ -1,8 +1,8 @@
 package com.example.shop.Controllers;
 
 
-import com.example.shop.DTO.LoginDTO;
-import com.example.shop.DTO.RegDTO;
+import com.example.shop.DTO.Security.LoginDTO;
+import com.example.shop.DTO.Security.RegDTO;
 import com.example.shop.DTO.RegSelman;
 import com.example.shop.Entity.Role;
 import com.example.shop.Entity.User;
@@ -16,13 +16,10 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -55,7 +52,7 @@ public class AuthController {
         user.setEmail(regDTO.getEmail());
         user.setUsername(regDTO.getName());
         user.setRole(Role.Buyer);
-        return ResponseEntity.ok(userServiceImp.updateUser(user));
+        return null;
     }
 
     @PostMapping("/login")
@@ -73,14 +70,6 @@ public class AuthController {
         }
     }
 
-    @PostMapping("/logout")
-    @PreAuthorize("hasAuthority('BUY')")
-    public void logout(HttpServletRequest request, HttpServletResponse response, @RequestBody Long id){
-        User user = userServiceImp.findUserById(id);
-        SecurityContextLogoutHandler securityContextLogoutHandler = new SecurityContextLogoutHandler();
-        securityContextLogoutHandler.logout(request, response, new UsernamePasswordAuthenticationToken(user.getEmail(), user.getPassword()));
-    }
-
     @PostMapping("/registration_selman")
     @PreAuthorize("hasAuthority('BUY')")
     public ResponseEntity<?> regSelman(@RequestBody RegSelman regDTO){
@@ -89,6 +78,6 @@ public class AuthController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
         user.setRole(Role.Salesman);
-        return ResponseEntity.ok(userServiceImp.updateUser(user));
+        return null;
     }
 }

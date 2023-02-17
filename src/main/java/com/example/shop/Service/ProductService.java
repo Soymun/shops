@@ -1,33 +1,30 @@
 package com.example.shop.Service;
 
-import com.example.shop.DTO.ProductGetDTO;
+import com.example.shop.DTO.Product.ProductCreateDto;
+import com.example.shop.DTO.Product.ProductDTO;
+import com.example.shop.DTO.Product.ProductGetDTO;
+import com.example.shop.DTO.Product.ProductUpdateDto;
 import com.example.shop.DTO.ProductListDTO;
 import com.example.shop.DTO.ProductSortedDTO;
 import com.example.shop.Entity.Product;
-import org.springframework.transaction.annotation.Transactional;
+import com.example.shop.Entity.TypeOfFood;
 
 import java.util.List;
 
 public interface ProductService{
 
-    @Transactional
-    List<ProductGetDTO> getOrderList(ProductListDTO productListDTO);
 
-    @Transactional
-    boolean deleteProduct(Product product);
+    List<ProductDTO> getProductByTypeOfFood(TypeOfFood typeOfFood);
 
-    @Transactional
-    boolean addComment(Long id, String comment);
 
-    @Transactional
-    boolean addLikes(Long id);
+    void deleteProductById(Long id);
 
-    @Transactional
-    Product getProductById(Long id);
 
-    @Transactional
-    void save(Product product);
+    ProductDTO getProductById(Long id);
 
-    @Transactional
-    List<ProductGetDTO> getSortedListProduct(ProductSortedDTO productSortedDTO);
+
+    void save(ProductCreateDto product);
+
+
+    ProductDTO updateProduct(ProductUpdateDto productUpdateDto);
 }

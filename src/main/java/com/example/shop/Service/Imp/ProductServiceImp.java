@@ -1,9 +1,13 @@
 package com.example.shop.Service.Imp;
 
-import com.example.shop.DTO.ProductGetDTO;
+import com.example.shop.DTO.Product.ProductCreateDto;
+import com.example.shop.DTO.Product.ProductDTO;
+import com.example.shop.DTO.Product.ProductGetDTO;
+import com.example.shop.DTO.Product.ProductUpdateDto;
 import com.example.shop.DTO.ProductListDTO;
 import com.example.shop.DTO.ProductSortedDTO;
 import com.example.shop.Entity.Product;
+import com.example.shop.Entity.TypeOfFood;
 import com.example.shop.Repository.ProductRepository;
 import com.example.shop.Service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,49 +20,28 @@ import java.util.List;
 @Service
 public class ProductServiceImp implements ProductService {
 
-    private final ProductRepository productRepository;
-
-    @Autowired
-    public ProductServiceImp(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-    }
-
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Override
-    public List<ProductGetDTO> getSortedListProduct(ProductSortedDTO productSortedDTO) {
+    public List<ProductDTO> getProductByTypeOfFood(TypeOfFood typeOfFood) {
         return null;
     }
 
     @Override
-    public List<ProductGetDTO> getOrderList(ProductListDTO productListDTO) {
+    public void deleteProductById(Long id) {
+
+    }
+
+    @Override
+    public ProductDTO getProductById(Long id) {
         return null;
     }
 
     @Override
-    public boolean deleteProduct(Product product) {
-        productRepository.delete(product);
-        return true;
+    public void save(ProductCreateDto product) {
+
     }
 
     @Override
-    public boolean addComment(Long id, String comment) {
-        return true;
-    }
-
-    @Override
-    public boolean addLikes(Long id) {
-        return true;
-    }
-
-    @Override
-    public Product getProductById(Long id) {
-        return productRepository.findProductById(id);
-    }
-
-    @Override
-    public void save(Product product) {
-        productRepository.save(product);
+    public ProductDTO updateProduct(ProductUpdateDto productUpdateDto) {
+        return null;
     }
 }

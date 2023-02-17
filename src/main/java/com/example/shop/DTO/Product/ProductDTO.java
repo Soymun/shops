@@ -1,4 +1,4 @@
-package com.example.shop.DTO;
+package com.example.shop.DTO.Product;
 
 import com.example.shop.Entity.Comment;
 import lombok.Data;
