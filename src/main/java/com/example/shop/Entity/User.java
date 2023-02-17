@@ -1,14 +1,19 @@
 package com.example.shop.Entity;
 
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-@Table(name = "usy")
-@Data
+@Table(name = "peron")
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class User {
 
     @Id
@@ -19,15 +24,11 @@ public class User {
 
     private String password;
 
-    private String name;
+    private Long balls;
+
+    private String username;
 
     private Role role;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private List<Product> products;
-
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private Basket basket;
+    private Long rating;
 }

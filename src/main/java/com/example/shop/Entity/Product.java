@@ -1,14 +1,18 @@
 package com.example.shop.Entity;
 
 
-import lombok.Data;
+import lombok.*;
+import org.hibernate.Hibernate;
 
 import javax.persistence.*;
-import java.util.List;
+import java.util.Objects;
 
 @Entity
 @Table(name = "products")
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 public class Product {
 
     @Id
@@ -19,13 +23,17 @@ public class Product {
 
     private String about;
 
+    private Double weight;
+
+    private TypeOfWeight typeOfWeight;
+
+    private Double calories;
+
     private Long price;
 
     private String urlToPngFile;
 
-    private Long likes;
+    private boolean inBallsProgram;
 
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "product_id")
-    private List<Comment> commentList;
+    private Long ballsPrice;
 }

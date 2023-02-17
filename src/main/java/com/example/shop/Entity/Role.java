@@ -3,6 +3,7 @@ package com.example.shop.Entity;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -17,7 +18,7 @@ public enum Role{
         this.permissions = permissions;
     }
 
-    public Set<SimpleGrantedAuthority> simpleGrantedAuthorities() {
-        return permissions.stream().map(n -> new SimpleGrantedAuthority(n.getPermission())).collect(Collectors.toSet());
+    public List<SimpleGrantedAuthority> simpleGrantedAuthorities() {
+        return permissions.stream().map(n -> new SimpleGrantedAuthority(n.getPermission())).collect(Collectors.toList());
     }
 }

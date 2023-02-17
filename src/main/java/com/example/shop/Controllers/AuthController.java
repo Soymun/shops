@@ -9,7 +9,6 @@ import com.example.shop.Entity.User;
 import com.example.shop.Jwt.JwtTokenProvider;
 import com.example.shop.Service.Imp.UserServiceImp;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -54,7 +53,7 @@ public class AuthController {
         user = new User();
         user.setPassword(passwordEncoder.encode(regDTO.getPassword()));
         user.setEmail(regDTO.getEmail());
-        user.setName(regDTO.getName());
+        user.setUsername(regDTO.getName());
         user.setRole(Role.Buyer);
         return ResponseEntity.ok(userServiceImp.updateUser(user));
     }
