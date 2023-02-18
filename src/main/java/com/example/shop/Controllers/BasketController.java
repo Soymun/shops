@@ -1,6 +1,6 @@
 package com.example.shop.Controllers;
 
-import com.example.shop.DTO.ProductBasketDTO;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +16,13 @@ public class BasketController {
 
     @PostMapping("/addInBasket")
     @PreAuthorize("hasAuthority('BUY')")
-    public ResponseEntity<?> addProductBasket(@RequestBody ProductBasketDTO productDTO){
+    public ResponseEntity<?> addProductBasket(){
         return null;
     }
 
     @DeleteMapping("/deleteBasket")
     @PreAuthorize("hasAuthority('BUY')")
-    public ResponseEntity<?> deleteBasket(@RequestBody ProductBasketDTO productDTO){
+    public ResponseEntity<?> deleteBasket(){
         return null;
     }
 }

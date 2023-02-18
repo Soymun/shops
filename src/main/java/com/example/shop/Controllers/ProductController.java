@@ -21,7 +21,7 @@ public class ProductController {
 
     @PreAuthorize("hasAuthority('SELL')")
     @GetMapping("/getAllProductById")
-    public ResponseEntity<?> getAllProductById(@RequestBody GetAllProductByIdDTO getAllProductByIdDTO){
+    public ResponseEntity<?> getAllProductById(){
         return null;
     }
 
@@ -53,13 +53,13 @@ public class ProductController {
 
     @GetMapping("/getOrderListProduct")
     @PreAuthorize("hasAuthority('BUY')")
-    public ResponseEntity<?> getOrderList(@RequestBody ProductListDTO productGetDTO){
+    public ResponseEntity<?> getOrderList(){
         return null;
     }
 
     @GetMapping("/getSortedListProduct")
     @PreAuthorize("hasAuthority('BUY')")
-    public ResponseEntity<?> getSortedList(@RequestBody ProductSortedDTO productGetDTO){
+    public ResponseEntity<?> getSortedList(){
         return null;
     }
 
@@ -71,7 +71,7 @@ public class ProductController {
 
     @PostMapping("/addLike")
     @PreAuthorize("hasAuthority('BUY')")
-    public ResponseEntity<?> addLike(@RequestBody GetAllProductByIdDTO getAllProductByIdDTO){
+    public ResponseEntity<?> addLike(){
         return null;
     }
 

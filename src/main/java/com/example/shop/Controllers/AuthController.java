@@ -3,7 +3,6 @@ package com.example.shop.Controllers;
 
 import com.example.shop.DTO.Security.LoginDTO;
 import com.example.shop.DTO.Security.RegDTO;
-import com.example.shop.DTO.RegSelman;
 import com.example.shop.Entity.Role;
 import com.example.shop.Entity.User;
 import com.example.shop.Jwt.JwtTokenProvider;
@@ -72,12 +71,12 @@ public class AuthController {
 
     @PostMapping("/registration_selman")
     @PreAuthorize("hasAuthority('BUY')")
-    public ResponseEntity<?> regSelman(@RequestBody RegSelman regDTO){
-        User user = userServiceImp.findUserByEmail(regDTO.getEmail());
-        if(user == null){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-        user.setRole(Role.Salesman);
+    public ResponseEntity<?> regSelman(){
+//        User user = userServiceImp.findUserByEmail(regDTO.getEmail());
+//        if(user == null){
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
+//        user.setRole(Role.Salesman);
         return null;
     }
 }

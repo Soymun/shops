@@ -5,7 +5,13 @@ import lombok.Data;
 @Data
 public class CommentDTO {
 
+    private Long id;
+
+    private Long productId;
+
+    private Long userId;
+
     private String comment;
 
-    private Long product;
+    private Double rating;
 }
