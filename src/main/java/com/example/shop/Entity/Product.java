@@ -1,11 +1,12 @@
 package com.example.shop.Entity;
 
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Objects;
 
 @Entity
 @Table(name = "products")
@@ -27,6 +28,11 @@ public class Product {
 
     private TypeOfWeight typeOfWeight;
 
+    @Column(name = "type_od_food_id")
+    private Long typeOfFoodId;
+
+    @ManyToOne
+    @JoinColumn(name = "type_od_food_id", insertable = false, updatable = false)
     private TypeOfFood typeOfFood;
 
     private Double calories;

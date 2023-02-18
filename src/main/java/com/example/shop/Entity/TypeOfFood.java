@@ -1,5 +1,29 @@
 package com.example.shop.Entity;
 
-public enum TypeOfFood {
+import lombok.*;
+
+import javax.persistence.*;
+
+@Entity
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
+public class TypeOfFood {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String name;
+
+    private String urlToPhoto;
+
+    @Column(name = "type_od_food_id")
+    private Long typeOfFoodId;
+
+    @ManyToOne
+    @JoinColumn(name = "type_od_food_id", insertable = false, updatable = false)
+    private TypeOfFood typeOfFood;
 
 }
