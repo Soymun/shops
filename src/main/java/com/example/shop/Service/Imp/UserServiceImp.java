@@ -51,4 +51,9 @@ public class UserServiceImp implements UserService {
     public void deleteUser(Long id) {
 
     }
+
+    @Override
+    public boolean foundTheUserByEmail(String email) {
+        return false;
+    }
 }

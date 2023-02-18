@@ -22,7 +22,7 @@ public class TypeOfFood {
     @Column(name = "type_od_food_id")
     private Long typeOfFoodId;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "type_od_food_id", insertable = false, updatable = false)
     private TypeOfFood typeOfFood;
 
