@@ -19,7 +19,7 @@ public class ProductUpdateDto {
 
     private String urlToPngFile;
 
-    private boolean inBallsProgram;
+    private Boolean inBallsProgram;
 
     private Long ballsPrice;
 }

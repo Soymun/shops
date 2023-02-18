@@ -10,7 +10,7 @@ import java.util.List;
 public interface ProductService{
 
 
-    List<ProductDTO> getProductByTypeOfFood(TypeOfFood typeOfFood);
+    List<ProductDTO> getProductByTypeOfFood(Long typeOfFoodId);
 
 
     void deleteProductById(Long id);

@@ -9,5 +9,5 @@ public class UserFoodUpdateDto {
 
     private Long count;
 
-    private boolean visible;
+    private Boolean visible;
 }

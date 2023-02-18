@@ -1,6 +1,5 @@
 package com.example.shop.Controllers;
 
-import com.example.shop.DTO.*;
 import com.example.shop.DTO.Comment.CommentDTO;
 import com.example.shop.DTO.Product.ProductDTO;
 import org.springframework.http.ResponseEntity;

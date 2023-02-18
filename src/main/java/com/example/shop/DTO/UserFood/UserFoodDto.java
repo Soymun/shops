@@ -11,6 +11,8 @@ public class UserFoodDto {
 
     private Long productId;
 
+    private Long orderId;
+
     private Long count;
 
     private boolean visible;
