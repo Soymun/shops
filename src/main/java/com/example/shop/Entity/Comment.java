@@ -4,6 +4,7 @@ package com.example.shop.Entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -15,6 +16,8 @@ public class Comment {
 
     @Column(name = "product_id")
     private Long productId;
+
+    private LocalDateTime localDateTime;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)

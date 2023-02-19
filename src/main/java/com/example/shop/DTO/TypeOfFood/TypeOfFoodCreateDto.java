@@ -7,7 +7,5 @@ public class TypeOfFoodCreateDto {
 
     private String name;
 
-    private String urlToPhoto;
-
     private Long typeOfFoodId;
 }

@@ -48,9 +48,9 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
-    public void save(ProductCreateDto product) {
+    public Long save(ProductCreateDto product) {
         log.info("Солхранение продукта {}", product.getName());
-        repository.save(productsMapper.productCreateDtoToProduct(product));
+        return repository.save(productsMapper.productCreateDtoToProduct(product)).getId();
     }
 
     @Override

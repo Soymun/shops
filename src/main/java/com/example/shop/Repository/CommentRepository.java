@@ -7,7 +7,8 @@ import java.util.List;
 
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
-    List<Comment> getCommentsByUserId(Long id);
 
-    List<Comment> getCommentsByProductId(Long id);
+    List<Comment> getCommentsByUserIdOrderByLocalDateTime(Long id);
+
+    List<Comment> getCommentsByProductIdOrderByLocalDateTime(Long id);
 }

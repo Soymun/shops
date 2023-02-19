@@ -13,4 +13,5 @@ jwt:
     security: soymun
     validate: 3600000
 
-
+file:
+  root: src/main/resources/root

@@ -23,9 +23,9 @@ public class TypeOfFoodServiceImpl implements TypeOfFoodService {
     private final TypeOfFoodRepository typeOfFoodRepository;
 
     @Override
-    public void createTypeOfFood(TypeOfFoodCreateDto typeOfFoodCreateDto) {
+    public Long createTypeOfFood(TypeOfFoodCreateDto typeOfFoodCreateDto) {
         log.info("Сохранение типа продукта");
-        typeOfFoodRepository.save(typeOfFoodMapper.typeOfFoodCreateDtoToTypeOfFood(typeOfFoodCreateDto));
+        return typeOfFoodRepository.save(typeOfFoodMapper.typeOfFoodCreateDtoToTypeOfFood(typeOfFoodCreateDto)).getId();
     }
 
     @Override

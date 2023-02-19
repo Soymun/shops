@@ -9,7 +9,7 @@ import java.util.List;
 
 public interface TypeOfFoodService {
 
-    void createTypeOfFood(TypeOfFoodCreateDto typeOfFoodCreateDto);
+    Long createTypeOfFood(TypeOfFoodCreateDto typeOfFoodCreateDto);
 
     TypeOfFoodDto getTypeOfFoodById(Long id);
 

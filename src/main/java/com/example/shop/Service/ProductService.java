@@ -19,7 +19,7 @@ public interface ProductService{
     ProductDTO getProductById(Long id);
 
 
-    void save(ProductCreateDto product);
+    Long save(ProductCreateDto product);
 
 
     ProductDTO updateProduct(ProductUpdateDto productUpdateDto);

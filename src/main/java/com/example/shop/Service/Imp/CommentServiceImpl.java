@@ -12,6 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,7 +27,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public void createComment(CommentCreateDto commentCreateDto) {
         log.info("Сохранение коментария");
-        commentRepository.save(commentMapper.commentCreateDtoToComment(commentCreateDto));
+        Comment comment = commentMapper.commentCreateDtoToComment(commentCreateDto);
+        comment.setLocalDateTime(LocalDateTime.now());
+        commentRepository.save(comment);
     }
 
     @Override
@@ -47,13 +50,13 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public List<CommentDTO> getCommentByProductId(Long id) {
         log.info("Выдача коментарий по продукту с id {}", id);
-        return commentRepository.getCommentsByProductId(id).stream().map(commentMapper::commentToCommentDto).toList();
+        return commentRepository.getCommentsByProductIdOrderByLocalDateTime(id).stream().map(commentMapper::commentToCommentDto).toList();
     }
 
     @Override
     public List<CommentDTO> getCommentByUserId(Long id) {
         log.info("Выдача коментариев по пользевателю с id {}", id);
-        return commentRepository.getCommentsByUserId(id).stream().map(commentMapper::commentToCommentDto).toList();
+        return commentRepository.getCommentsByUserIdOrderByLocalDateTime(id).stream().map(commentMapper::commentToCommentDto).toList();
     }
 
     @Override
