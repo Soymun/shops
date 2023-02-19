@@ -17,4 +17,8 @@ public interface UserFoodService {
     UserFoodDto updateUserFood(UserFoodUpdateDto userFoodUpdateDto);
 
     List<UserFoodDto> getUserFoodByUserId(Long id);
+
+    List<UserFoodDto> getUserFoodByOrderId(Long id);
+
+    void setAllUserFoodUnVisible(Long userId, Long orderId);
 }

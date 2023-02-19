@@ -1,11 +1,13 @@
 package com.example.shop.Entity;
 
 
-import lombok.*;
-import org.hibernate.Hibernate;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -26,4 +28,6 @@ public class Order {
     private Long userId;
 
     private Status status;
+
+    private LocalDateTime localDateTime;
 }
