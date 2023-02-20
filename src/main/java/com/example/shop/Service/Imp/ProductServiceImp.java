@@ -4,6 +4,9 @@ import com.example.shop.DTO.Product.ProductCreateDto;
 import com.example.shop.DTO.Product.ProductDTO;
 import com.example.shop.DTO.Product.ProductUpdateDto;
 import com.example.shop.Entity.Product;
+import com.example.shop.Entity.Product_;
+import com.example.shop.Entity.TypeOfFood;
+import com.example.shop.Entity.TypeOfFood_;
 import com.example.shop.Mappers.ProductsMapper;
 import com.example.shop.Repository.ProductRepository;
 import com.example.shop.Service.ProductService;
@@ -12,6 +15,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import javax.persistence.criteria.Subquery;
 import java.util.List;
 
 @Service
@@ -23,13 +32,37 @@ public class ProductServiceImp implements ProductService {
 
     private final ProductsMapper productsMapper;
 
+    @PersistenceContext
+    EntityManager entityManager;
+
     @Override
     public List<ProductDTO> getProductByTypeOfFood(Long typeOfFoodId) {
         log.info("Получение всех позиций по id вида еды {}", typeOfFoodId);
-        return repository
-                .findProductsByTypeOfFoodIdOrderByPrice(typeOfFoodId)
-                .stream()
-                .map(productsMapper::productToProductDto).toList();
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductDTO> cq = cb.createQuery(ProductDTO.class);
+        Root<Product> root = cq.from(Product.class);
+
+        Subquery<TypeOfFood> subquery = cq.subquery(TypeOfFood.class);
+        Root<TypeOfFood> typeOfFoodRoot = subquery.from(TypeOfFood.class);
+        subquery.where(cb.equal(typeOfFoodRoot.get(TypeOfFood_.id), root.get(Product_.typeOfFoodId)));
+        subquery.select(typeOfFoodRoot);
+
+        cq.where(cb.equal(root.get(Product_.typeOfFoodId), typeOfFoodId));
+
+        cq.multiselect(
+                root.get(Product_.id),
+                root.get(Product_.name),
+                root.get(Product_.about),
+                root.get(Product_.weight),
+                root.get(Product_.typeOfWeight),
+                subquery,
+                root.get(Product_.calories),
+                root.get(Product_.price),
+                root.get(Product_.urlToPngFile),
+                root.get(Product_.inBallsProgram),
+                root.get(Product_.ballsPrice)
+        );
+        return entityManager.createQuery(cq).getResultList();
     }
 
     @Override
@@ -42,9 +75,31 @@ public class ProductServiceImp implements ProductService {
     @Override
     public ProductDTO getProductById(Long id) {
         log.info("Выдача продукта по id {}", id);
-        return productsMapper.productToProductDto(repository.findProductById(id).orElseThrow(() -> {
-            throw new RuntimeException("Продукт не был найден");
-        }));
+        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
+        CriteriaQuery<ProductDTO> cq = cb.createQuery(ProductDTO.class);
+        Root<Product> root = cq.from(Product.class);
+
+        Subquery<TypeOfFood> subquery = cq.subquery(TypeOfFood.class);
+        Root<TypeOfFood> typeOfFoodRoot = subquery.from(TypeOfFood.class);
+        subquery.where(cb.equal(typeOfFoodRoot.get(TypeOfFood_.id), root.get(Product_.typeOfFoodId)));
+        subquery.select(typeOfFoodRoot);
+
+        cq.where(cb.equal(root.get(Product_.id), id));
+
+        cq.multiselect(
+                root.get(Product_.id),
+                root.get(Product_.name),
+                root.get(Product_.about),
+                root.get(Product_.weight),
+                root.get(Product_.typeOfWeight),
+                subquery,
+                root.get(Product_.calories),
+                root.get(Product_.price),
+                root.get(Product_.urlToPngFile),
+                root.get(Product_.inBallsProgram),
+                root.get(Product_.ballsPrice)
+        );
+        return entityManager.createQuery(cq).getSingleResult();
     }
 
     @Override

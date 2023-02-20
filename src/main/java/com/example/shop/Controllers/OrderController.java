@@ -40,7 +40,7 @@ public class OrderController {
         return ResponseEntity.ok(ResponseDto.builder().data(orderService.getOrdersByUserId(id)).build());
     }
 
-    @PostMapping("/order")
+    @PatchMapping("/order")
     @PreAuthorize("hasAuthority('SELL')")
     public ResponseEntity<?> updateOrder(@RequestBody OrderUpdateDto orderUpdateDto){
         return ResponseEntity.ok(ResponseDto.builder().data(orderService.updateOrder(orderUpdateDto)).build());

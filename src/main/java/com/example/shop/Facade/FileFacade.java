@@ -6,8 +6,10 @@ import com.example.shop.Mappers.ProductsMapper;
 import com.example.shop.Mappers.TypeOfFoodMapper;
 import com.example.shop.Service.Imp.ProductServiceImp;
 import com.example.shop.Service.Imp.TypeOfFoodServiceImpl;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.FileCopyUtils;
@@ -21,12 +23,11 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 @Service
-@RequiredArgsConstructor
 @Slf4j
 public class FileFacade {
 
     @Value("${file.root}")
-    private final String url;
+    private String url;
 
     private final ProductServiceImp productServiceImp;
 
@@ -35,6 +36,14 @@ public class FileFacade {
     private final TypeOfFoodMapper typeOfFoodMapper;
 
     private final ProductsMapper productsMapper;
+
+    @Autowired
+    public FileFacade(ProductServiceImp productServiceImp, TypeOfFoodServiceImpl typeOfFoodService, TypeOfFoodMapper typeOfFoodMapper, ProductsMapper productsMapper) {
+        this.productServiceImp = productServiceImp;
+        this.typeOfFoodService = typeOfFoodService;
+        this.typeOfFoodMapper = typeOfFoodMapper;
+        this.productsMapper = productsMapper;
+    }
 
     public void saveFile(Long id, MultipartFile file) throws IOException {
         File file1 = new File(url + file.getOriginalFilename());
