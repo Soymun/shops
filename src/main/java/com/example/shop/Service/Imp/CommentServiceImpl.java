@@ -5,8 +5,6 @@ import com.example.shop.DTO.Comment.CommentDTO;
 import com.example.shop.DTO.Comment.CommentUpdateDto;
 import com.example.shop.Entity.Comment;
 import com.example.shop.Entity.Comment_;
-import com.example.shop.Entity.User;
-import com.example.shop.Entity.User_;
 import com.example.shop.Mappers.CommentMapper;
 import com.example.shop.Repository.CommentRepository;
 import com.example.shop.Service.CommentService;
@@ -20,7 +18,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -58,17 +55,14 @@ public class CommentServiceImpl implements CommentService {
         CriteriaQuery<CommentDTO> cq = cb.createQuery(CommentDTO.class);
         Root<Comment> root = cq.from(Comment.class);
 
-        Subquery<User> subquery = cq.subquery(User.class);
-        Root<User> userRoot = subquery.from(User.class);
-        subquery.where(cb.equal(userRoot.get(User_.id), root.get(Comment_.userId)));
-        subquery.select(userRoot);
-
         cq.where(cb.equal(root.get(Comment_.id), id));
+
+        cq.orderBy(cb.desc(root.get(Comment_.localDateTime)));
 
         cq.multiselect(
                 root.get(Comment_.id),
                 root.get(Comment_.productId),
-                subquery,
+                root.get(Comment_.userId),
                 root.get(Comment_.localDateTime),
                 root.get(Comment_.comment),
                 root.get(Comment_.rating)
@@ -83,17 +77,14 @@ public class CommentServiceImpl implements CommentService {
         CriteriaQuery<CommentDTO> cq = cb.createQuery(CommentDTO.class);
         Root<Comment> root = cq.from(Comment.class);
 
-        Subquery<User> subquery = cq.subquery(User.class);
-        Root<User> userRoot = subquery.from(User.class);
-        subquery.where(cb.equal(userRoot.get(User_.id), root.get(Comment_.userId)));
-        subquery.select(userRoot);
-
         cq.where(cb.equal(root.get(Comment_.productId), id));
+
+        cq.orderBy(cb.desc(root.get(Comment_.localDateTime)));
 
         cq.multiselect(
                 root.get(Comment_.id),
                 root.get(Comment_.productId),
-                subquery,
+                root.get(Comment_.userId),
                 root.get(Comment_.localDateTime),
                 root.get(Comment_.comment),
                 root.get(Comment_.rating)
@@ -108,17 +99,12 @@ public class CommentServiceImpl implements CommentService {
         CriteriaQuery<CommentDTO> cq = cb.createQuery(CommentDTO.class);
         Root<Comment> root = cq.from(Comment.class);
 
-        Subquery<User> subquery = cq.subquery(User.class);
-        Root<User> userRoot = subquery.from(User.class);
-        subquery.where(cb.equal(userRoot.get(User_.id), root.get(Comment_.userId)));
-        subquery.select(userRoot);
-
         cq.where(cb.equal(root.get(Comment_.userId), id));
 
         cq.multiselect(
                 root.get(Comment_.id),
                 root.get(Comment_.productId),
-                subquery,
+                root.get(Comment_.userId),
                 root.get(Comment_.localDateTime),
                 root.get(Comment_.comment),
                 root.get(Comment_.rating)

@@ -10,7 +10,7 @@ import java.util.List;
 public interface OrderService {
 
 
-    void createOrder(OrderCreateDto orderCreateDto);
+    Long createOrder(OrderCreateDto orderCreateDto);
 
     void deleteOrderById(Long id);
 

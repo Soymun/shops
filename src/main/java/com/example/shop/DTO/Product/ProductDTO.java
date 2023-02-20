@@ -25,7 +25,7 @@ public class ProductDTO {
 
     private TypeOfWeight typeOfWeight;
 
-    private TypeOfFoodDto typeOfFoodDto;
+    private Long typeOfFoodId;
 
     private Double calories;
 
@@ -36,18 +36,4 @@ public class ProductDTO {
     private boolean inBallsProgram;
 
     private Long ballsPrice;
-
-    public ProductDTO(Long id, String name, String about, Double weight, TypeOfFood typeOfFood, TypeOfWeight typeOfWeight, Double calories, Long price, String urlToPngFile, boolean inBallsProgram, Long ballsPrice) {
-        this.id = id;
-        this.name = name;
-        this.about = about;
-        this.weight = weight;
-        this.typeOfWeight = typeOfWeight;
-        this.typeOfFoodDto = new TypeOfFoodDto(typeOfFood.getId(), typeOfFood.getName(), typeOfFood.getUrlToPhoto(), typeOfFood.getTypeOfFoodId());
-        this.calories = calories;
-        this.price = price;
-        this.urlToPngFile = urlToPngFile;
-        this.inBallsProgram = inBallsProgram;
-        this.ballsPrice = ballsPrice;
-    }
 }

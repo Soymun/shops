@@ -26,12 +26,12 @@ public class OrderServiceImpl implements OrderService {
     private final OrderMapper orderMapper;
 
     @Override
-    public void createOrder(OrderCreateDto orderCreateDto) {
+    public Long createOrder(OrderCreateDto orderCreateDto) {
         log.info("Создание нового заказа");
         Order order = orderMapper.orderCreateDtoToOrder(orderCreateDto);
         order.setLocalDateTime(LocalDateTime.now());
         order.setStatus(Status.CREATE);
-        orderRepository.save(order);
+        return orderRepository.save(order).getId();
     }
 
     @Override

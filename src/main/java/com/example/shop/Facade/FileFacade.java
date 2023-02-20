@@ -6,8 +6,6 @@ import com.example.shop.Mappers.ProductsMapper;
 import com.example.shop.Mappers.TypeOfFoodMapper;
 import com.example.shop.Service.Imp.ProductServiceImp;
 import com.example.shop.Service.Imp.TypeOfFoodServiceImpl;
-import lombok.NoArgsConstructor;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,6 +19,7 @@ import java.io.*;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -47,36 +46,42 @@ public class FileFacade {
 
     public void saveFile(Long id, MultipartFile file) throws IOException {
         File file1 = new File(url + file.getOriginalFilename());
-        String mimeType = URLConnection.guessContentTypeFromName(file.getName());
-        if(mimeType.equals("png") || mimeType.equals("jpql")) {
+        String mimeType = Objects.requireNonNull(file.getContentType()).split("/")[1];
+        if(mimeType.equals("png") || mimeType.equals("jpeg")) {
             if (file1.createNewFile()) {
-                file.transferTo(file1);
+                BufferedOutputStream writer =new BufferedOutputStream(Files.newOutputStream(Paths.get(file1.getAbsolutePath())));
+                writer.write(file.getBytes());
+                writer.flush();
+                writer.close();
                 ProductDTO product = productServiceImp.getProductById(id);
-                product.setUrlToPngFile(file1.getPath());
+                product.setUrlToPngFile(file.getOriginalFilename());
                 productServiceImp.updateProduct(productsMapper.productDtoToProduct(product));
             } else {
-                BufferedWriter writer = Files.newBufferedWriter(Paths.get(url + file.getOriginalFilename()));
-                writer.write("");
+                BufferedOutputStream writer =new BufferedOutputStream(Files.newOutputStream(Paths.get(file1.getAbsolutePath())));
+                writer.write(file.getBytes());
                 writer.flush();
-                file.transferTo(file1);
+                writer.close();
             }
         }
     }
 
     public void saveFileTypeOfFood(Long id, MultipartFile file) throws IOException {
         File file1 = new File(url + file.getOriginalFilename());
-        String mimeType = URLConnection.guessContentTypeFromName(file.getName());
-        if(mimeType.equals("png") || mimeType.equals("jpql")) {
+        String mimeType = Objects.requireNonNull(file.getContentType()).split("/")[1];
+        if(mimeType.equals("png") || mimeType.equals("jpeg")) {
             if (file1.createNewFile()) {
-                file.transferTo(file1);
+                BufferedOutputStream writer =new BufferedOutputStream(Files.newOutputStream(Paths.get(file1.getAbsolutePath())));
+                writer.write(file.getBytes());
+                writer.flush();
+                writer.close();
                 TypeOfFoodDto product = typeOfFoodService.getTypeOfFoodById(id);
-                product.setUrlToPhoto(file1.getPath());
+                product.setUrlToPhoto(file.getOriginalFilename());
                 typeOfFoodService.updateTypeOfFood(typeOfFoodMapper.typeOfFoodToTypeOfFoodUpdateDto(product));
             } else {
-                BufferedWriter writer = Files.newBufferedWriter(Paths.get(url + file.getOriginalFilename()));
-                writer.write("");
+                BufferedOutputStream writer =new BufferedOutputStream(Files.newOutputStream(Paths.get(file1.getAbsolutePath())));
+                writer.write(file.getBytes());
                 writer.flush();
-                file.transferTo(file1);
+                writer.close();
             }
         }
     }

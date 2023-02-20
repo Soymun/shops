@@ -38,7 +38,9 @@ public class UserFoodServiceImp implements UserFoodService {
     @Override
     public void createUserFood(UserFoodCreateDto userFoodCreateDto) {
         log.info("Сохранение пользователем продукта");
-        userFoodRepository.save(userFoodMapper.userFoodCreateDtoToUserProduct(userFoodCreateDto));
+        UserProduct userProduct = userFoodMapper.userFoodCreateDtoToUserProduct(userFoodCreateDto);
+        userProduct.setVisible(true);
+        userFoodRepository.save(userProduct);
     }
 
     @Override
@@ -67,7 +69,7 @@ public class UserFoodServiceImp implements UserFoodService {
         cq.multiselect(
                 root.get(UserProduct_.id),
                 root.get(UserProduct_.userId),
-                subquery,
+                root.get(UserProduct_.productId),
                 root.get(UserProduct_.orderId),
                 root.get(UserProduct_.count)
         );
@@ -81,7 +83,7 @@ public class UserFoodServiceImp implements UserFoodService {
             throw new RuntimeException("Продукт пользователя не найден");
         });
         if (userFoodUpdateDto.getCount() != null) {
-            userProduct.setCount(userProduct.getCount());
+            userProduct.setCount(userFoodUpdateDto.getCount());
         }
         if (userFoodUpdateDto.getVisible() != null) {
             userProduct.setVisible(userFoodUpdateDto.getVisible());
@@ -108,7 +110,7 @@ public class UserFoodServiceImp implements UserFoodService {
         cq.multiselect(
                 root.get(UserProduct_.id),
                 root.get(UserProduct_.userId),
-                subquery,
+                root.get(UserProduct_.productId),
                 root.get(UserProduct_.orderId),
                 root.get(UserProduct_.count)
         );
@@ -122,19 +124,12 @@ public class UserFoodServiceImp implements UserFoodService {
         CriteriaQuery<UserFoodDto> cq = cb.createQuery(UserFoodDto.class);
         Root<UserProduct> root = cq.from(UserProduct.class);
 
-        Subquery<Product> subquery = cq.subquery(Product.class);
-        Root<Product> subRoot = subquery.from(Product.class);
-
-        subquery.where(cb.equal(subRoot.get(Product_.id), root.get(UserProduct_.productId)));
-
-        subquery.select(subRoot);
-
         cq.where(cb.equal(root.get(UserProduct_.orderId), id));
 
         cq.multiselect(
                 root.get(UserProduct_.id),
                 root.get(UserProduct_.userId),
-                subquery,
+                root.get(UserProduct_.productId),
                 root.get(UserProduct_.orderId),
                 root.get(UserProduct_.count)
         );

@@ -19,6 +19,4 @@ public class ProductCreateDto {
     private Double calories;
 
     private Long price;
-
-    private String urlToPngFile;
 }

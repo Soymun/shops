@@ -9,7 +9,5 @@ public class TypeOfFoodUpdateDto {
 
     private String name;
 
-    private String urlToPhoto;
-
     private Long typeOfFoodId;
 }

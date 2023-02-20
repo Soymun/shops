@@ -7,6 +7,7 @@ import com.example.shop.DTO.Security.RegDTO;
 import com.example.shop.DTO.User.UserCreateDto;
 import com.example.shop.Entity.User;
 import com.example.shop.Jwt.JwtTokenProvider;
+import com.example.shop.Response.ResponseDto;
 import com.example.shop.Service.Imp.UserServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -49,7 +50,7 @@ public class AuthenticationFacade {
             map.put("id", user.getId());
             map.put("role", user.getRole());
             map.put("token", token);
-            return ResponseEntity.ok(map);
+            return ResponseEntity.ok(ResponseDto.builder().data(map).build());
         }catch (AuthenticationException e){
             throw new RuntimeException("Ошибка аунтефикации");
         }
@@ -57,11 +58,11 @@ public class AuthenticationFacade {
 
     public ResponseEntity<?> reLogin(ReLoginDto reLoginDto){
         if(reLoginDto.isInvalid()){
-            return ResponseEntity.ok(jwtTokenProvider.createToken(reLoginDto.getEmail(), reLoginDto.getRole()));
+            return ResponseEntity.ok(ResponseDto.builder().data(jwtTokenProvider.createToken(jwtTokenProvider.getEmail(reLoginDto.getToken()), reLoginDto.getRole())).build());
         }
         else {
             if(jwtTokenProvider.validateToken(reLoginDto.getToken())){
-                return ResponseEntity.ok(jwtTokenProvider.createToken(reLoginDto.getEmail(), reLoginDto.getRole()));
+                return ResponseEntity.ok(ResponseDto.builder().data(jwtTokenProvider.createToken(jwtTokenProvider.getEmail(reLoginDto.getToken()), reLoginDto.getRole())).build());
             }
             else {
                 return ResponseEntity.noContent().build();

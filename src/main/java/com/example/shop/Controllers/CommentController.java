@@ -3,8 +3,8 @@ package com.example.shop.Controllers;
 
 import com.example.shop.DTO.Comment.CommentCreateDto;
 import com.example.shop.DTO.Comment.CommentUpdateDto;
+import com.example.shop.Facade.CommentFacade;
 import com.example.shop.Response.ResponseDto;
-import com.example.shop.Service.Imp.CommentServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class CommentController {
 
-    private final CommentServiceImpl commentService;
+    private final CommentFacade commentService;
 
     @PostMapping("/comment")
     @PreAuthorize("hasAuthority('BUY')")

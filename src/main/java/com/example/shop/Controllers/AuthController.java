@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthController {
     private final AuthenticationFacade authenticationFacade;
 
-    @PostMapping("/registration_user")
+    @PostMapping("/registration")
     public ResponseEntity<?> registration(@RequestBody RegDTO regDTO){
         return authenticationFacade.registration(regDTO);
     }

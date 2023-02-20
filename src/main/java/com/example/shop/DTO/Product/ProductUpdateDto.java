@@ -17,8 +17,6 @@ public class ProductUpdateDto {
 
     private Long price;
 
-    private String urlToPngFile;
-
     private Boolean inBallsProgram;
 
     private Long ballsPrice;

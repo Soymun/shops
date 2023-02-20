@@ -25,10 +25,11 @@ public class CommentDTO {
 
     private Double rating;
 
-    public CommentDTO(Long id, Long productId, User user, LocalDateTime localDateTime, String comment, Double rating) {
+    public CommentDTO(Long id, Long productId, Long userId, LocalDateTime localDateTime, String comment, Double rating) {
         this.id = id;
         this.productId = productId;
-        this.userDto = new UserDto(user.getId(), user.getEmail(), user.getBalls(), user.getUsername(), user.getRole(), user.getRating());
+        this.userDto = new UserDto();
+        userDto.setId(userId);
         this.localDateTime = localDateTime;
         this.comment = comment;
         this.rating = rating;

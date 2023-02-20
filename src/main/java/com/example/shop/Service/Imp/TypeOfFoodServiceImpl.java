@@ -45,9 +45,6 @@ public class TypeOfFoodServiceImpl implements TypeOfFoodService {
         if(typeOfFoodUpdateDto.getName() != null){
             typeOfFood.setName(typeOfFoodUpdateDto.getName());
         }
-        if(typeOfFoodUpdateDto.getUrlToPhoto() != null){
-            typeOfFood.setUrlToPhoto(typeOfFoodUpdateDto.getUrlToPhoto());
-        }
         if(typeOfFoodUpdateDto.getTypeOfFoodId() != null){
             typeOfFood.setTypeOfFoodId(typeOfFoodUpdateDto.getTypeOfFoodId());
         }

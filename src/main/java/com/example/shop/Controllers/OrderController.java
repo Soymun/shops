@@ -3,8 +3,8 @@ package com.example.shop.Controllers;
 
 import com.example.shop.DTO.Oder.OrderCreateDto;
 import com.example.shop.DTO.Oder.OrderUpdateDto;
+import com.example.shop.Facade.OrderFacade;
 import com.example.shop.Response.ResponseDto;
-import com.example.shop.Service.Imp.OrderServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class OrderController {
 
-    private final OrderServiceImpl orderService;
+    private final OrderFacade orderService;
 
     @PostMapping("/order")
     @PreAuthorize("hasAuthority('SELL')")

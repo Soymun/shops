@@ -5,8 +5,6 @@ import com.example.shop.DTO.Product.ProductDTO;
 import com.example.shop.DTO.Product.ProductUpdateDto;
 import com.example.shop.Entity.Product;
 import com.example.shop.Entity.Product_;
-import com.example.shop.Entity.TypeOfFood;
-import com.example.shop.Entity.TypeOfFood_;
 import com.example.shop.Mappers.ProductsMapper;
 import com.example.shop.Repository.ProductRepository;
 import com.example.shop.Service.ProductService;
@@ -20,7 +18,6 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import java.util.List;
 
 @Service
@@ -42,11 +39,6 @@ public class ProductServiceImp implements ProductService {
         CriteriaQuery<ProductDTO> cq = cb.createQuery(ProductDTO.class);
         Root<Product> root = cq.from(Product.class);
 
-        Subquery<TypeOfFood> subquery = cq.subquery(TypeOfFood.class);
-        Root<TypeOfFood> typeOfFoodRoot = subquery.from(TypeOfFood.class);
-        subquery.where(cb.equal(typeOfFoodRoot.get(TypeOfFood_.id), root.get(Product_.typeOfFoodId)));
-        subquery.select(typeOfFoodRoot);
-
         cq.where(cb.equal(root.get(Product_.typeOfFoodId), typeOfFoodId));
 
         cq.multiselect(
@@ -55,7 +47,7 @@ public class ProductServiceImp implements ProductService {
                 root.get(Product_.about),
                 root.get(Product_.weight),
                 root.get(Product_.typeOfWeight),
-                subquery,
+                root.get(Product_.typeOfFoodId),
                 root.get(Product_.calories),
                 root.get(Product_.price),
                 root.get(Product_.urlToPngFile),
@@ -79,11 +71,6 @@ public class ProductServiceImp implements ProductService {
         CriteriaQuery<ProductDTO> cq = cb.createQuery(ProductDTO.class);
         Root<Product> root = cq.from(Product.class);
 
-        Subquery<TypeOfFood> subquery = cq.subquery(TypeOfFood.class);
-        Root<TypeOfFood> typeOfFoodRoot = subquery.from(TypeOfFood.class);
-        subquery.where(cb.equal(typeOfFoodRoot.get(TypeOfFood_.id), root.get(Product_.typeOfFoodId)));
-        subquery.select(typeOfFoodRoot);
-
         cq.where(cb.equal(root.get(Product_.id), id));
 
         cq.multiselect(
@@ -92,7 +79,7 @@ public class ProductServiceImp implements ProductService {
                 root.get(Product_.about),
                 root.get(Product_.weight),
                 root.get(Product_.typeOfWeight),
-                subquery,
+                root.get(Product_.typeOfFoodId),
                 root.get(Product_.calories),
                 root.get(Product_.price),
                 root.get(Product_.urlToPngFile),
@@ -128,9 +115,6 @@ public class ProductServiceImp implements ProductService {
         }
         if(productUpdateDto.getPrice() != null){
             product.setPrice(productUpdateDto.getPrice());
-        }
-        if(productUpdateDto.getUrlToPngFile() != null){
-            product.setUrlToPngFile(productUpdateDto.getUrlToPngFile());
         }
         if(productUpdateDto.getInBallsProgram() != null){
             product.setInBallsProgram(productUpdateDto.getInBallsProgram());
