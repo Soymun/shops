@@ -1,6 +1,7 @@
 import React, {useState} from 'react';
 import classes from "./Header.module.css";
 import NavBar from "../navbar/NavBar";
+import {NavLink, Route, Routes} from "react-router-dom";
 
 const Header = () => {
 
@@ -33,17 +34,15 @@ const Header = () => {
                     <a href='' className={classes.club}>
                         KING CLUB
                     </a>
-                    <a href="">
-                        <div className={classes.profile}></div>
-                    </a>
+                    <NavLink to={'/profile'} className={classes.profile}/>
                     <div className={classes.cart}>
                         <button className={classes.cartBtn}></button>
                     </div>
+                </div>
             </div>
         </div>
-</div>
-)
-    ;
+    )
+        ;
 };
 
 export default Header;
