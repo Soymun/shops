@@ -6,8 +6,10 @@ spring:
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     open-in-view: off
+  liquibase:
+    enabled: true
 
 jwt:
   token:

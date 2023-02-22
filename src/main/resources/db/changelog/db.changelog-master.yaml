@@ -1,0 +1,294 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: person
+      changes:
+        - createTable:
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(50)
+              - column:
+                  name: balls
+                  type: int
+              - column:
+                  name: role
+                  type: int
+              - column:
+                  name: rating
+                  type: int
+  - changeSet:
+      id: 2
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: type_of_food
+      changes:
+          - createTable:
+              tableName: type_of_food
+              columns:
+                - column:
+                    name: id
+                    type: BIGINT
+                    autoIncrement: true
+                    constraints:
+                      primaryKey: true
+                      nullable: false
+                - column:
+                    name: name
+                    type: varchar(255)
+                    constraints:
+                      unique: true
+                      nullable: false
+                - column:
+                    name: url_to_photo
+                    type: varchar(512)
+                - column:
+                    name: type_of_food_id
+                    type: int
+          - addForeignKeyConstraint:
+              baseTableName: type_of_food
+              baseColumnNames: type_of_food_id
+              referencedTableName: type_of_food
+              referencedColumnNames: id
+              constraintName: type_of_food_root_fk
+  - changeSet:
+      id: 3
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: products
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: url_to_png_file
+                  type: varchar(512)
+              - column:
+                  name: about
+                  type: varchar(512)
+              - column:
+                  name: weight
+                  type: double
+              - column:
+                  name: balls_price
+                  type: int
+              - column:
+                  name: type_of_weight
+                  type: int
+              - column:
+                  name: in_balls_program
+                  type: boolean
+              - column:
+                  name: price
+                  type: int
+              - column:
+                  name: calories
+                  type: double
+              - column:
+                  name: type_of_food_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: products
+            baseColumnNames: type_of_food_id
+            referencedTableName: type_of_food
+            referencedColumnNames: id
+            constraintName: type_of_food_product_fk
+  - changeSet:
+      id: 4
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: comment
+      changes:
+        - createTable:
+            tableName: comment
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: comment
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: local_date_time
+                  type: date
+              - column:
+                  name: product_id
+                  type: int
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: rating
+                  type: double
+        - addForeignKeyConstraint:
+            baseTableName: comment
+            baseColumnNames: product_id
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: product_comment_fk
+        - addForeignKeyConstraint:
+            baseTableName: comment
+            baseColumnNames: user_id
+            referencedTableName: person
+            referencedColumnNames: id
+            constraintName: user_comment_fk
+  - changeSet:
+      id: 5
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: orders
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: local_date_time
+                  type: date
+              - column:
+                  name: status
+                  type: int
+              - column:
+                  name: user_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: user_id
+            referencedTableName: person
+            referencedColumnNames: id
+            constraintName: person_order_fk
+  - changeSet:
+      id: 6
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: comment
+      changes:
+        - createTable:
+            tableName: user_product
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: int
+              - column:
+                  name: visible
+                  type: boolean
+              - column:
+                  name: product_id
+                  type: int
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: count
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: user_product
+            baseColumnNames: product_id
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: user_product_comment_fk
+        - addForeignKeyConstraint:
+            baseTableName: user_product
+            baseColumnNames: user_id
+            referencedTableName: person
+            referencedColumnNames: id
+            constraintName: user_user_product_fk
+        - addForeignKeyConstraint:
+            baseTableName: user_product
+            baseColumnNames: order_id
+            referencedTableName: orders
+            referencedColumnNames: id
+            constraintName: user_product_order_fk
+  - changeSet:
+      id: 7
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExists:
+            schemaName: public
+            tableName: person
+      changes:
+        - insert:
+            tableName: person
+            columns:
+              - column:
+                  name: email
+                  value: "root"
+              - column:
+                  name: password
+                  value: "$2a$12$Dr/Jhlbg6VUFR74E3voUtO1iFDtHLkVd9S.uLw2xDcbIHCvqrQMLy"
+              - column:
+                  name: role
+                  value: "2"

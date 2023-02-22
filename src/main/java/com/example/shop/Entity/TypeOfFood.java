@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
+@Table(name = "type_of_food")
 @Getter
 @Setter
 @ToString
@@ -17,13 +18,14 @@ public class TypeOfFood {
 
     private String name;
 
+    @Column(name = "url_to_photo")
     private String urlToPhoto;
 
-    @Column(name = "type_od_food_id")
+    @Column(name = "type_of_food_id")
     private Long typeOfFoodId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "type_od_food_id", insertable = false, updatable = false)
+    @JoinColumn(name = "type_of_food_id", insertable = false, updatable = false)
     private TypeOfFood typeOfFood;
 
 }

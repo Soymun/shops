@@ -9,7 +9,7 @@ import lombok.ToString;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "peron")
+@Table(name = "person")
 @Getter
 @Setter
 @ToString
