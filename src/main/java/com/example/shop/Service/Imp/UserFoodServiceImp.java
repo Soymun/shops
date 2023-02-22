@@ -7,6 +7,7 @@ import com.example.shop.Entity.Product;
 import com.example.shop.Entity.Product_;
 import com.example.shop.Entity.UserProduct;
 import com.example.shop.Entity.UserProduct_;
+import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.UserFoodMapper;
 import com.example.shop.Repository.UserFoodRepository;
 import com.example.shop.Service.UserFoodService;
@@ -80,7 +81,7 @@ public class UserFoodServiceImp implements UserFoodService {
     public UserFoodDto updateUserFood(UserFoodUpdateDto userFoodUpdateDto) {
         log.info("Изменение еды пользователя");
         UserProduct userProduct = userFoodRepository.findById(userFoodUpdateDto.getId()).orElseThrow(() -> {
-            throw new RuntimeException("Продукт пользователя не найден");
+            throw new NoFoundException("Продукт пользователя не найден");
         });
         if (userFoodUpdateDto.getCount() != null) {
             userProduct.setCount(userFoodUpdateDto.getCount());

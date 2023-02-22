@@ -4,6 +4,7 @@ import com.example.shop.DTO.TypeOfFood.TypeOfFoodCreateDto;
 import com.example.shop.DTO.TypeOfFood.TypeOfFoodDto;
 import com.example.shop.DTO.TypeOfFood.TypeOfFoodUpdateDto;
 import com.example.shop.Entity.TypeOfFood;
+import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.TypeOfFoodMapper;
 import com.example.shop.Repository.TypeOfFoodRepository;
 import com.example.shop.Service.TypeOfFoodService;
@@ -32,7 +33,7 @@ public class TypeOfFoodServiceImpl implements TypeOfFoodService {
     public TypeOfFoodDto getTypeOfFoodById(Long id) {
         log.info("Выдача типа продукта по id {}", id);
         return typeOfFoodMapper.typeOfFoodToTypeOfFoodCreateDto(typeOfFoodRepository.findById(id).orElseThrow(() -> {
-            throw new RuntimeException("Тип продукта нен айден");
+            throw new NoFoundException("Тип продукта не найден");
         }));
     }
 
@@ -40,7 +41,7 @@ public class TypeOfFoodServiceImpl implements TypeOfFoodService {
     public TypeOfFoodDto updateTypeOfFood(TypeOfFoodUpdateDto typeOfFoodUpdateDto) {
         log.info("Изменение типа еды");
         TypeOfFood typeOfFood = typeOfFoodRepository.findById(typeOfFoodUpdateDto.getId()).orElseThrow(() -> {
-            throw new RuntimeException("Тип продукта нен айден");
+            throw new NoFoundException("Тип продукта не найден");
         });
         if(typeOfFoodUpdateDto.getName() != null){
             typeOfFood.setName(typeOfFoodUpdateDto.getName());

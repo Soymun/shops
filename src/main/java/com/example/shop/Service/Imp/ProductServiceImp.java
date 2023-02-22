@@ -5,6 +5,7 @@ import com.example.shop.DTO.Product.ProductDTO;
 import com.example.shop.DTO.Product.ProductUpdateDto;
 import com.example.shop.Entity.Product;
 import com.example.shop.Entity.Product_;
+import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.ProductsMapper;
 import com.example.shop.Repository.ProductRepository;
 import com.example.shop.Service.ProductService;
@@ -99,7 +100,7 @@ public class ProductServiceImp implements ProductService {
     public ProductDTO updateProduct(ProductUpdateDto productUpdateDto) {
         log.info("Изменение продукта");
         Product product = repository.findProductById(productUpdateDto.getId()).orElseThrow(() -> {
-            throw new RuntimeException("Продукт не был найден");
+            throw new NoFoundException("Продукт не был найден");
         });
         if(productUpdateDto.getName() != null){
             product.setName(productUpdateDto.getName());

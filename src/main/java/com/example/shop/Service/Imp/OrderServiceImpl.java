@@ -5,6 +5,7 @@ import com.example.shop.DTO.Oder.OrderDto;
 import com.example.shop.DTO.Oder.OrderUpdateDto;
 import com.example.shop.Entity.Order;
 import com.example.shop.Entity.Status;
+import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.OrderMapper;
 import com.example.shop.Repository.OrderRepository;
 import com.example.shop.Service.OrderService;
@@ -44,7 +45,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto getOrderById(Long id) {
         log.info("Выдача заказа по id");
-        return orderMapper.orderToOrderDto(orderRepository.findById(id).orElseThrow(() -> {throw new RuntimeException("Заказ не нйден");}));
+        return orderMapper.orderToOrderDto(orderRepository.findById(id).orElseThrow(() -> {throw new NoFoundException("Заказ не нйден");}));
     }
 
     @Override
@@ -56,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto updateOrder(OrderUpdateDto orderUpdateDto) {
         log.info("Изменение заказа");
-        Order order = orderRepository.findById(orderUpdateDto.getId()).orElseThrow(() -> {throw new RuntimeException("Заказ не нйден");});
+        Order order = orderRepository.findById(orderUpdateDto.getId()).orElseThrow(() -> {throw new NoFoundException("Заказ не нйден");});
         if(orderUpdateDto.getStatus() != null){
             order.setStatus(orderUpdateDto.getStatus());
         }

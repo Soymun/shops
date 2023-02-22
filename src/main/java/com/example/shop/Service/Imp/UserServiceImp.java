@@ -5,6 +5,7 @@ import com.example.shop.DTO.User.UserDto;
 import com.example.shop.DTO.User.UserUpdateDto;
 import com.example.shop.Entity.Role;
 import com.example.shop.Entity.User;
+import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.UserMapper;
 import com.example.shop.Repository.UserRepository;
 import com.example.shop.Service.UserService;
@@ -37,7 +38,7 @@ public class UserServiceImp implements UserService {
                         userRepository
                                 .findUserById(id)
                                 .orElseThrow(() -> {
-                                    throw new RuntimeException("Пользователь не был найден");
+                                    throw new NoFoundException("Пользователь не был найден");
                                 }));
     }
 
@@ -45,7 +46,7 @@ public class UserServiceImp implements UserService {
     public User findUserByEmail(String email) {
         log.info("Выдача пользователя с email {}", email);
         return userRepository.findUserByEmail(email).orElseThrow(() -> {
-            throw new RuntimeException("Пользователь не был найден");
+            throw new NoFoundException("Пользователь не был найден");
         });
     }
 
@@ -53,7 +54,7 @@ public class UserServiceImp implements UserService {
     public UserDto updateUser(UserUpdateDto user) {
         log.info("Изменение пользователя с id {}", user.getId());
         User findsUser = userRepository.findUserById(user.getId()).orElseThrow(() -> {
-            throw new RuntimeException("Пользователь не был найден");
+            throw new NoFoundException("Пользователь не был найден");
         });
         if (user.getEmail() != null) {
             findsUser.setUsername(user.getEmail());

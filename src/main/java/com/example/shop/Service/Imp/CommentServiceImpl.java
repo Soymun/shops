@@ -5,6 +5,7 @@ import com.example.shop.DTO.Comment.CommentDTO;
 import com.example.shop.DTO.Comment.CommentUpdateDto;
 import com.example.shop.Entity.Comment;
 import com.example.shop.Entity.Comment_;
+import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.CommentMapper;
 import com.example.shop.Repository.CommentRepository;
 import com.example.shop.Service.CommentService;
@@ -116,7 +117,7 @@ public class CommentServiceImpl implements CommentService {
     public CommentDTO updateComment(CommentUpdateDto commentUpdateDto) {
         log.info("Изменеие коментария");
         Comment comment = commentRepository.findById(commentUpdateDto.getId()).orElseThrow(() -> {
-            throw new RuntimeException("Коментарий не найден");
+            throw new NoFoundException("Коментарий не найден");
         });
         if(commentUpdateDto.getComment() != null){
             comment.setComment(commentUpdateDto.getComment());
