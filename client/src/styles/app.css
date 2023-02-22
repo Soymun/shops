@@ -1,3 +1,21 @@
+@font-face {
+    font-family: 'Flame';
+    src: local('Flame'), url("../fonts/flame/FlameRegular.otf") format("opentype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Rotonda';
+    src: local('Rotonda'), url("../fonts/rotonda/RotondaC.otf") format("opentype");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'Robo';
+    src: local('Robo'), url("../fonts/robo/19189.ttf") format("truetype");
+    font-weight: normal;
+}
+
 * {
     padding: 0;
     margin: 0;

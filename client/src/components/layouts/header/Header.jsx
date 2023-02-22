@@ -1,12 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import classes from "./Header.module.css";
+import NavBar from "../navbar/NavBar";
 
 const Header = () => {
+
+    const [active, setActive] = useState(false)
+
     return (
         <div className={classes.header}>
             <div className={classes.headerMenu}>
                 <div className={classes.leftMenu}>
-                    <button className={classes.navBar}>
+                    <button onClick={() => setActive(!active)} className={classes.navBar}>
+                        <NavBar active={active} setActive={setActive}/>
                     </button>
                     <div className={classes.city}>
                         <div className={classes.citySelect}>в ресторане</div>
