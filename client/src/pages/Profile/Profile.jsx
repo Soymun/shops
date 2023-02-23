@@ -11,6 +11,9 @@ const Profile = () => {
                 <div className={s.left}>
                     <Info/>
                     <Promo/>
+                    <h2 className={s.title}>Уведомления</h2>
+                    <input type="checkbox" id={'notifications'} value={'yes'} className={s.notification}/>
+                    <label htmlFor="notifications">Я хочу получать информационную рассылку от Burger King</label>
                 </div>
                 <div className={s.right}>
                     <RightMenu/>
