@@ -43,7 +43,7 @@
     top: 0;
     left: 0;
     content: '';
-    background: no-repeat  url('https://cdn.onlinewebfonts.com/svg/download_113945.png');
+    background: no-repeat  url('https://www.svgrepo.com/show/421558/burger-menu.svg');
     background-size: contain;
 }
 
@@ -53,7 +53,7 @@
 
 .selectedCity {
     font-size: 14px;
-    font-family: Rotonda;
+    font-family: Rotonda, sans-serif;
 }
 
 .citySelect {

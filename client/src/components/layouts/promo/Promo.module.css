@@ -1,0 +1,57 @@
+.container{
+    border-radius: 16px;
+    background-color: #fa0;
+    padding: 16px;
+    width: 800px;
+}
+.title{
+    font-size: 16px;
+    color: #32180f;
+    font-family: 'Rotonda', sans-serif;
+    margin-bottom: 25px;
+}
+.text{
+    font: 20px Rotonda;
+    color: #502314;
+    margin-bottom: 20px;
+}
+.promoCopy{
+    display: flex;
+    background-color: #fff;
+    border-radius: 50px;
+    border: 2px solid #fff;
+    font-family: 'Rotonda', sans-serif;
+    font-size: 20px;
+    color: #502314;
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    font-weight: 700;
+    cursor: pointer;
+    caret-color: transparent;
+    margin-bottom: 25px;
+}
+.promoCopyActive{
+    display: flex;
+    background-color: #fff;
+    border-radius: 50px;
+    border: 2px solid #198737;
+    font-family: 'Rotonda', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    width: 100%;
+    text-align: center;
+    color: #198737;
+    padding: 20px;
+    caret-color: transparent;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+input:focus{
+    outline: none;
+}
+.text2{
+    color: #32180f;
+    font-size: 16px;
+    font-family: 'Rotonda', sans-serif;
+}
