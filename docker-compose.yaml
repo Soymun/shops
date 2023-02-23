@@ -17,6 +17,8 @@ services:
     ports:
       - "8080:8080"
     restart: unless-stopped
+    volumes:
+      - ./src/main/resources/root:/src/main/resources/root
 
   postgres_db:
     image: postgres:11.8
