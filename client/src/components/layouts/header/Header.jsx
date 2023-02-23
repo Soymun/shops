@@ -22,9 +22,10 @@ const Header = () => {
                         <input className={classes.searchInput} placeholder='Введите название блюда' type="text"/>
                     </div>
                     <div className={classes.logo}>
-                        <img
-                            src="https://web-static.burgerkingrus.ru/master/25190/_nuxt/85fa0a1c71a8bba230f5de81e911c609.svg"
-                            alt=""/>
+                        <NavLink to={'/'}>
+                            <img
+                                src="https://web-static.burgerkingrus.ru/master/25190/_nuxt/85fa0a1c71a8bba230f5de81e911c609.svg"/>
+                        </NavLink>
                     </div>
                 </div>
                 <div className={classes.rightMenu}>

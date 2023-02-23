@@ -1,0 +1,12 @@
+.container{
+    background-color: #f5ebdc;
+
+}
+.wrapper{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 1280px;
+    margin: 0 auto;
+    padding: 90px 0;
+}

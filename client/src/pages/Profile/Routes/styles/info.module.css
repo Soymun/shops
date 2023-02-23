@@ -1,0 +1,72 @@
+.container{
+    display: flex;
+    align-items: center;
+    gap: 0 30px;
+}
+
+.profile {
+    background-image: url(https://web-static.burgerkingrus.ru/master/25190/_nuxt/8a500768972a4d6a7b8539804ed2bf0c.svg);
+    width: 180px;
+    height: 180px;
+    background-position: 50%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: 2px solid #502314;
+    border-radius: 50%;
+}
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 20px 0;
+}
+.name{
+    font-size: 32px !important;
+    font-family: 'Rotonda', sans-serif;
+    color: #502314;
+    font-weight: 700;
+}
+.contentItem{
+    font-size: 16px;
+    color: #502314;
+    font-family: 'Rotonda', sans-serif;
+    font-weight: 700;
+
+
+}
+.number:before{
+    content: '';
+    position: absolute;
+    background-image: url(https://www.svgrepo.com/show/503069/phone.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    left: 0;
+    right: 0;
+}
+.birthday:before{
+    content: '';
+    position: absolute;
+    background-image: url(https://www.svgrepo.com/show/490022/birthday-cake.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 18px;
+    height: 18px;
+    left: 0;
+    right: 0;
+}
+.email, .number, .birthday{
+    position: relative;
+    padding-left: 30px;
+}
+.email:before{
+     content: '';
+     position: absolute;
+     background-image: url(https://www.svgrepo.com/show/501173/email.svg);
+     background-size: cover;
+     background-repeat: no-repeat;
+     width: 18px;
+     height: 18px;
+     left: 0;
+     right: 0;
+ }
