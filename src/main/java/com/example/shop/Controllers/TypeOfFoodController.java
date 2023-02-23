@@ -16,6 +16,7 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins="http://localhost:3000")
 public class TypeOfFoodController {
 
     private final TypeOfFoodServiceImpl typeOfFoodService;

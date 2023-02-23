@@ -18,6 +18,7 @@ import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
+@CrossOrigin(origins="http://localhost:3000")
 public class ProductController {
 
     private final ProductServiceImp productServiceImp;
