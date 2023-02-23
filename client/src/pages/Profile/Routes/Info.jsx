@@ -9,6 +9,7 @@ const Info = () => {
                 <p className={`${s.birthday} ${s.contentItem}`}>27/09/2002</p>
                 <p className={`${s.number} ${s.contentItem}`}>+79996666666</p>
                 <p className={`${s.email} ${s.contentItem}`}>test@mail.ru</p>
+                <a href="!#" className={s.editBtn}>Редактировать</a>
             </div>
         </div>
     );

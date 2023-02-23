@@ -3,7 +3,7 @@
 }
 .wrapper{
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-between;
     width: 1280px;
     margin: 0 auto;

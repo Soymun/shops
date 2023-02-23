@@ -31,7 +31,7 @@
     position: relative;
     width: 36px;
     height: 36px;
-    color: #f5ebdc;
+    background-color: #f5ebdc;
     border: none;
     cursor: pointer;
 }
@@ -43,7 +43,7 @@
     top: 0;
     left: 0;
     content: '';
-    background: no-repeat  url('https://www.svgrepo.com/show/421558/burger-menu.svg');
+    background: no-repeat  url('https://img.icons8.com/ios/512/menu-rounded.png');
     background-size: contain;
 }
 
@@ -67,11 +67,11 @@
 
 .citySelect:after {
     position: absolute;
-    height: 16px;
-    width: 16px;
-    right: -7px;
+    height: 13px;
+    width: 13px;
+    right: -12px;
     content: '';
-    background: no-repeat url("https://e7.pngegg.com/pngimages/563/868/png-clipart-computer-icons-pencil-icon-design-material-design-drawing-pencil-angle-pencil.png");
+    background: no-repeat url("https://cdn-icons-png.flaticon.com/512/1828/1828911.png");
     background-size: contain;
 }
 
