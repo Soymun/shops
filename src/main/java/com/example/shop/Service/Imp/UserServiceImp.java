@@ -74,6 +74,9 @@ public class UserServiceImp implements UserService {
         if (user.getRating() != null) {
             findsUser.setRating(user.getRating());
         }
+        if(user.getMailingList() != null){
+            findsUser.setMailingList(user.getMailingList());
+        }
         return userMapper.userToUserDto(userRepository.save(findsUser));
     }
 
@@ -87,6 +90,7 @@ public class UserServiceImp implements UserService {
         user1.setRole(Role.Buyer);
         user1.setRating(0L);
         user1.setBalls(0L);
+        user1.setMailingList(true);
         userRepository.save(user1);
     }
 

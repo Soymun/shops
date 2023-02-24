@@ -21,4 +21,6 @@ public class UserDto {
     private Role role;
 
     private Long rating;
+
+    private Boolean mailingList;
 }

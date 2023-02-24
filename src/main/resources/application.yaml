@@ -13,6 +13,20 @@ spring:
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
+  thymeleaf:
+    prefix: src/main/resources/templates
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: burgerrusmain@gmail.com
+    password: qxabzshvrnbhoccy
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+    test-connection: true
 
 jwt:
   token:

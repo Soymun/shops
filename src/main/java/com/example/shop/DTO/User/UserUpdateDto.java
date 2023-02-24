@@ -19,4 +19,6 @@ public class UserUpdateDto {
     private Role role;
 
     private Long rating;
+
+    private Boolean mailingList;
 }

@@ -41,6 +41,11 @@ databaseChangeLog:
               - column:
                   name: rating
                   type: int
+              - column:
+                  name: mailing_list
+                  type: boolean
+                  constraints:
+                    - default: false
   - changeSet:
       id: 2
       author: soymun
@@ -292,3 +297,6 @@ databaseChangeLog:
               - column:
                   name: role
                   value: "2"
+              - column:
+                  name: mailing_list
+                  value: false

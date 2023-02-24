@@ -19,7 +19,10 @@ import java.io.*;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @Slf4j
@@ -86,6 +89,14 @@ public class FileFacade {
         }
     }
 
+    public void saveThymeleaf(MultipartFile file) throws IOException {
+        File file1 = new File(url + file.getOriginalFilename());
+        BufferedOutputStream writer =new BufferedOutputStream(Files.newOutputStream(Paths.get(file1.getAbsolutePath())));
+        writer.write(file.getBytes());
+        writer.flush();
+        writer.close();
+    }
+
     public void downloadFile(HttpServletRequest request, HttpServletResponse response, String nameFile) throws Exception {
             File file = new File(url + nameFile);
             String mimeType = URLConnection.guessContentTypeFromName(file.getName());
@@ -98,5 +109,10 @@ public class FileFacade {
             InputStream inputStream = new BufferedInputStream(new FileInputStream(file));
 
             FileCopyUtils.copy(inputStream, response.getOutputStream());
+    }
+
+    public List<String> getThymeleafList(){
+        File file = new File("src/main/resources/templates");
+        return Arrays.stream(Objects.requireNonNull(file.listFiles())).map(File::getName).collect(Collectors.toList());
     }
 }
