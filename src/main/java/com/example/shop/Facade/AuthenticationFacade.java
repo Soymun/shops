@@ -10,6 +10,7 @@ import com.example.shop.Exception.FoundException;
 import com.example.shop.Exception.MyAuthenticationException;
 import com.example.shop.Jwt.JwtTokenProvider;
 import com.example.shop.Response.ResponseDto;
+import com.example.shop.Service.Imp.DefaultEmailService;
 import com.example.shop.Service.Imp.UserServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -34,12 +35,14 @@ public class AuthenticationFacade {
 
     private final JwtTokenProvider jwtTokenProvider;
 
+    private final DefaultEmailService defaultEmailService;
     public ResponseEntity<?> registration(RegDTO regDTO){
         if(userServiceImp.foundTheUserByEmail(regDTO.getEmail())){
             throw new FoundException("Пользователь с таким email уже был зарегестрирован!!!");
         }
         UserCreateDto userCreateDto = new UserCreateDto(regDTO.getEmail(), passwordEncoder.encode(regDTO.getPassword()), regDTO.getName());
-        userServiceImp.saveUser(userCreateDto);
+        String uuid = userServiceImp.saveUser(userCreateDto);
+        defaultEmailService.sendSimpleEmail(userCreateDto.getEmail(), "Activating mail", String.format("Click on this link to activate your email: http://localhost:8080/activate/%s", uuid));
         return ResponseEntity.status(201).build();
     }
 
@@ -70,5 +73,10 @@ public class AuthenticationFacade {
                 return ResponseEntity.noContent().build();
             }
         }
+    }
+
+    public ResponseEntity<?> activate(String uuid){
+        userServiceImp.activateUser(uuid);
+        return ResponseEntity.ok(ResponseDto.builder().data("Пользователь успешно активирован").build());
     }
 }

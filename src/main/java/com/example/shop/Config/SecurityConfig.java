@@ -29,7 +29,7 @@ public class SecurityConfig {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .antMatchers("/registration", "/login", "/swagger-ui/**").permitAll()
+                .antMatchers("/registration", "/login", "/swagger-ui/**", "/activate/**").permitAll()
                 .and()
                 .apply(new JwtTokenConfig(jwtTokenProvider));
         return http.build();

@@ -33,4 +33,8 @@ public class User {
     private Long rating;
 
     private Boolean mailingList;
+
+    private Boolean activated;
+
+    private String uuid;
 }

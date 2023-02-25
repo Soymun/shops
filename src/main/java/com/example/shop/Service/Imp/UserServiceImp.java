@@ -5,6 +5,7 @@ import com.example.shop.DTO.User.UserDto;
 import com.example.shop.DTO.User.UserUpdateDto;
 import com.example.shop.Entity.Role;
 import com.example.shop.Entity.User;
+import com.example.shop.Exception.ActivateIsFalse;
 import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.UserMapper;
 import com.example.shop.Repository.UserRepository;
@@ -15,6 +16,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.UUID;
 
 @Service
 @Slf4j
@@ -45,7 +48,7 @@ public class UserServiceImp implements UserService {
     @Override
     public User findUserByEmail(String email) {
         log.info("Выдача пользователя с email {}", email);
-        return userRepository.findUserByEmail(email).orElseThrow(() -> {
+        return userRepository.findUserByEmailAndActivatedIsTrue(email).orElseThrow(() -> {
             throw new NoFoundException("Пользователь не был найден");
         });
     }
@@ -81,7 +84,7 @@ public class UserServiceImp implements UserService {
     }
 
     @Override
-    public void saveUser(UserCreateDto user) {
+    public String saveUser(UserCreateDto user) {
         log.info("Сохранение пользователя");
         User user1 = new User();
         user1.setEmail(user.getEmail());
@@ -91,7 +94,10 @@ public class UserServiceImp implements UserService {
         user1.setRating(0L);
         user1.setBalls(0L);
         user1.setMailingList(true);
+        user1.setActivated(false);
+        user1.setUuid(UUID.randomUUID().toString());
         userRepository.save(user1);
+        return user1.getUuid();
     }
 
     @Override
@@ -104,6 +110,16 @@ public class UserServiceImp implements UserService {
     @Override
     public boolean foundTheUserByEmail(String email) {
         log.info("Проверка пользователя");
-        return userRepository.findUserByEmail(email).isPresent();
+        return userRepository.findUserByEmailAndActivatedIsTrue(email).isPresent();
+    }
+
+    @Override
+    public boolean activateUser(String uuid) {
+        User user = userRepository.getUserByUuid(uuid).orElseThrow(() -> {throw new ActivateIsFalse("Ошибка активации");});
+
+        user.setUuid(null);
+        user.setActivated(true);
+        userRepository.save(user);
+        return true;
     }
 }

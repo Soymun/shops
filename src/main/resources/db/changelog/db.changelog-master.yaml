@@ -46,6 +46,14 @@ databaseChangeLog:
                   type: boolean
                   constraints:
                     - default: false
+              - column:
+                  name: activated
+                  type: boolean
+                  constraints:
+                    - default: false
+              - column:
+                  name: uuid
+                  type: varchar(512)
   - changeSet:
       id: 2
       author: soymun
@@ -300,3 +308,6 @@ databaseChangeLog:
               - column:
                   name: mailing_list
                   value: false
+              - column:
+                  name: activated
+                  value: true

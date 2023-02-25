@@ -90,7 +90,7 @@ public class FileFacade {
     }
 
     public void saveThymeleaf(MultipartFile file) throws IOException {
-        File file1 = new File(url + file.getOriginalFilename());
+        File file1 = new File("src/main/resources/templates/" + file.getOriginalFilename());
         BufferedOutputStream writer =new BufferedOutputStream(Files.newOutputStream(Paths.get(file1.getAbsolutePath())));
         writer.write(file.getBytes());
         writer.flush();
