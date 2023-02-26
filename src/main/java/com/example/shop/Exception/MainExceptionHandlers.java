@@ -14,27 +14,27 @@ import javax.persistence.NonUniqueResultException;
 @Slf4j
 public class MainExceptionHandlers {
 
-    @ExceptionHandler({NoFoundException.class, FoundException.class})
-    public ResponseEntity<?> exc(RuntimeException e){
-        log.info("Предвиденные ошибки");
-        return ResponseEntity.ok(ResponseDto.builder().error(e.getMessage()).build());
-    }
-
-    @ExceptionHandler({NoResultException.class, NonUniqueResultException.class})
-    public ResponseEntity<?> sql(RuntimeException e){
-        log.error(e.getMessage());
-        return ResponseEntity.ok(ResponseDto.builder().error("Ошибка в данных. Попробуйте позже").build());
-    }
-
-    @ExceptionHandler({RuntimeException.class})
-    public ResponseEntity<?> run(RuntimeException e){
-        log.error(e.getMessage());
-        return ResponseEntity.ok(ResponseDto.builder().error("Что-то произошло.\nПросим прощения.\nПопробуйте позже").build());
-    }
-
-    @ExceptionHandler({Exception.class})
-    public ResponseEntity<?> main(Exception e){
-        log.error(e.getMessage());
-        return ResponseEntity.ok(ResponseDto.builder().error("Похоже что-то серьёзное, не бойтесь, вы не виноваты, виноват Руслан.").build());
-    }
+//    @ExceptionHandler({NoFoundException.class, FoundException.class})
+//    public ResponseEntity<?> exc(RuntimeException e){
+//        log.info("Предвиденные ошибки");
+//        return ResponseEntity.ok(ResponseDto.builder().error(e.getMessage()).build());
+//    }
+//
+//    @ExceptionHandler({NoResultException.class, NonUniqueResultException.class})
+//    public ResponseEntity<?> sql(RuntimeException e){
+//        log.error(e.getMessage());
+//        return ResponseEntity.ok(ResponseDto.builder().error("Ошибка в данных. Попробуйте позже").build());
+//    }
+//
+//    @ExceptionHandler({RuntimeException.class})
+//    public ResponseEntity<?> run(RuntimeException e){
+//        log.error(e.getMessage());
+//        return ResponseEntity.ok(ResponseDto.builder().error("Что-то произошло.\nПросим прощения.\nПопробуйте позже").build());
+//    }
+//
+//    @ExceptionHandler({Exception.class})
+//    public ResponseEntity<?> main(Exception e){
+//        log.error(e.getMessage());
+//        return ResponseEntity.ok(ResponseDto.builder().error("Похоже что-то серьёзное, не бойтесь, вы не виноваты, виноват Руслан.").build());
+//    }
 }

@@ -41,7 +41,7 @@ public class Product {
 
     private String urlToPngFile;
 
-    private boolean inBallsProgram;
+    private Boolean inBallsProgram;
 
     private Long ballsPrice;
 }
