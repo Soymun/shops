@@ -7,7 +7,7 @@
     position: sticky;
     z-index: 1;
     top: 0;
-    font-family: 'Robo';
+    font-family: 'Robo', sans-serif;
     border-bottom: 2px solid #d7c7b5;
 }
 
