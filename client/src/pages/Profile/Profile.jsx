@@ -17,6 +17,7 @@ const Profile = () => {
                 </div>
                 <div className={s.right}>
                     <RightMenu/>
+                    123123123
                 </div>
             </div>
         </div>
