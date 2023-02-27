@@ -30,4 +30,6 @@ body {
     margin: 0 auto;
     width: 1240px;
 }
-
+a{
+    text-decoration: none;
+}
