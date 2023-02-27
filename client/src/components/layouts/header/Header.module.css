@@ -8,7 +8,7 @@
     z-index: 1;
     top: 0;
     font-family: 'Robo';
-
+    border-bottom: 2px solid #d7c7b5;
 }
 
 .headerMenu {
@@ -31,7 +31,7 @@
     position: relative;
     width: 36px;
     height: 36px;
-    color: #f5ebdc;
+    background-color: #f5ebdc;
     border: none;
     cursor: pointer;
 }
@@ -43,7 +43,7 @@
     top: 0;
     left: 0;
     content: '';
-    background: no-repeat  url('https://cdn.onlinewebfonts.com/svg/download_113945.png');
+    background: no-repeat  url('https://img.icons8.com/ios/512/menu-rounded.png');
     background-size: contain;
 }
 
@@ -53,7 +53,7 @@
 
 .selectedCity {
     font-size: 14px;
-    font-family: Rotonda;
+    font-family: Rotonda, sans-serif;
 }
 
 .citySelect {
@@ -67,11 +67,11 @@
 
 .citySelect:after {
     position: absolute;
-    height: 16px;
-    width: 16px;
-    right: -7px;
+    height: 13px;
+    width: 13px;
+    right: -12px;
     content: '';
-    background: no-repeat url("https://e7.pngegg.com/pngimages/563/868/png-clipart-computer-icons-pencil-icon-design-material-design-drawing-pencil-angle-pencil.png");
+    background: no-repeat url("https://cdn-icons-png.flaticon.com/512/1828/1828911.png");
     background-size: contain;
 }
 
@@ -146,7 +146,7 @@
 }
 
 .profile {
-    background-image: url(	https://web-static.burgerkingrus.ru/master/25190/_nuxt/8a500768972a4d6a7b8539804ed2bf0c.svg);
+    background-image: url(https://web-static.burgerkingrus.ru/master/25190/_nuxt/8a500768972a4d6a7b8539804ed2bf0c.svg);
     width: 34px;
     height: 34px;
     background-position: 50%;
