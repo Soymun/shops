@@ -1,6 +1,7 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './styles/info.module.css'
 import Modal from "../modal/Modal";
+import axios from "axios";
 
 const Info = () => {
     const [modal, setModal] = useState(false)
@@ -8,6 +9,9 @@ const Info = () => {
         e.preventDefault()
         setModal(!modal)
     }
+    axios.get('http://localhost:3000/profile').then(res =>{
+        console.log(res.data);
+    })
     return (
         <div className={s.container}>
             <div className={s.profile}></div>
