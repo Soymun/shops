@@ -15,14 +15,14 @@ const NavBar = ({setActive, active}) => {
                         <a href='' className={classes.menuItem}>Контакты</a>
                     </div>
                     <div className={classes.subtitles}>
-                        <a href=''>Новинки и акции</a>
-                        <a href=''>Развитие</a>
-                        <a href=''>О компании</a>
-                        <a href=''>Тендеры</a>
-                        <a href=''>Рестораны</a>
-                        <a href=''>Для детей</a>
-                        <a href=''>Партнеры</a>
-                        <a href=''>Мобильное приложение</a>
+                        <a className={classes.menuSmallItem} href=''>Новинки и акции</a>
+                        <a className={classes.menuSmallItem} href=''>Развитие</a>
+                        <a className={classes.menuSmallItem} href=''>О компании</a>
+                        <a className={classes.menuSmallItem} href=''>Тендеры</a>
+                        <a className={classes.menuSmallItem} href=''>Рестораны</a>
+                        <a className={classes.menuSmallItem} href=''>Для детей</a>
+                        <a className={classes.menuSmallItem} href=''>Партнеры</a>
+                        <a className={classes.menuSmallItem} href=''>Мобильное приложение</a>
                     </div>
                 </div>
             </div>

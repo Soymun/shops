@@ -1,0 +1,24 @@
+.footerDesc {
+    width: 1280px;
+    margin: 0 auto;
+}
+
+.wrapper {
+    width: 568px;
+    margin: 0 auto;
+    padding: 80px 16px 120px;
+}
+
+.title {
+    font-weight: 700;
+    font-size: 40px;
+    color: #502314;
+    font-family: 'Robo', sans-serif;
+}
+
+.about {
+    margin-top: 40px;
+    color: #87604f;
+    font-family: 'Rotonda', sans-serif;
+    font-size: 14px;
+}
