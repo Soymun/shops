@@ -1,0 +1,13 @@
+.productList {
+    background-color: #f5ebdc;
+}
+
+.wrapper {
+    width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    grid-gap: 60px 32px;
+    border-bottom: 1px solid #d7c7b5;
+    padding-bottom: 15px;
+}

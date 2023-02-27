@@ -1,6 +1,7 @@
-a {
+.navBar a {
     text-decoration: none;
     color: black;
+    display: block;
 }
 
 .navBar {
@@ -12,6 +13,7 @@ a {
     background-color: rgba(187,163,145,.85);
     backdrop-filter: blur(5px);
     display: none;
+    z-index: 1000;
 }
 
 .wrapper {
@@ -20,11 +22,11 @@ a {
     margin: 0 auto;
     width: 1280px;
     height: 100%;
-    z-index: 10;
 }
 
 .titles {
     display: block;
+    margin-right: 74px;
 }
 
 .subtitles {
@@ -32,8 +34,32 @@ a {
 }
 
 .container {
+    padding-top: 48px;
+    display: flex;
     background-color: #f5ebdc;
     z-index: 10;
+    width: 520px;
+}
+
+.menuItem {
+    font-size: 26px;
+    font-family: Robo, sans-serif;
+    text-align: left;
+}
+
+.menuItem + .menuItem {
+    margin-top: 20px;
+
+}
+
+.menuSmallItem {
+    font-size: 16px;
+    font-family: Robo, sans-serif;
+    text-align: left;
+}
+
+.menuSmallItem + .menuSmallItem {
+    margin-top: 20px;
 }
 
 
