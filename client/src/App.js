@@ -2,7 +2,7 @@ import './styles/app.css'
 import Header from "./components/layouts/header/Header";
 import Footer from "./components/layouts/footer/Footer";
 import {Route, Routes} from "react-router-dom";
-import Profile from "./pages/profile/Profile";
+import Profile from "./pages/Profile/Profile";
 import Main from "./pages/main/Main";
 
 function App() {
