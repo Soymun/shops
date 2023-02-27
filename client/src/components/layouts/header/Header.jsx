@@ -32,9 +32,7 @@ const Header = () => {
                     <a href='' className={classes.coupons}>
                         Купоны
                     </a>
-                    <a href='' className={classes.club}>
-                        KING CLUB
-                    </a>
+                    <NavLink to={'/king-club'} className={classes.club}>King club</NavLink>
                     <NavLink to={'/profile'} className={classes.profile}/>
                     <div className={classes.cart}>
                         <button className={classes.cartBtn}></button>
