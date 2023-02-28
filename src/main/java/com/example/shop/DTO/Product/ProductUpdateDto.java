@@ -1,8 +1,13 @@
 package com.example.shop.DTO.Product;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 @Data
+@AllArgsConstructor
+@RequiredArgsConstructor
 public class ProductUpdateDto {
 
     private Long id;

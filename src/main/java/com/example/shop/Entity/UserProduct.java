@@ -4,13 +4,14 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 public class UserProduct {
 
@@ -22,7 +23,8 @@ public class UserProduct {
     @JoinColumn(name = "user_id", insertable = false, updatable = false)
     private User user;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @Fetch(value = FetchMode.JOIN)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "product_id", insertable = false, updatable = false)
     private Product product;
 

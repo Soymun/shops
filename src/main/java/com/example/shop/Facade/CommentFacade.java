@@ -4,7 +4,6 @@ import com.example.shop.DTO.Comment.CommentCreateDto;
 import com.example.shop.DTO.Comment.CommentDTO;
 import com.example.shop.DTO.Comment.CommentUpdateDto;
 import com.example.shop.Service.Imp.CommentServiceImpl;
-import com.example.shop.Service.Imp.UserServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,8 +15,6 @@ public class CommentFacade {
 
     private final CommentServiceImpl commentService;
 
-    private final UserServiceImp userServiceImp;
-
     public void createComment(CommentCreateDto commentCreateDto){
         commentService.createComment(commentCreateDto);
     }
@@ -27,17 +24,15 @@ public class CommentFacade {
     }
 
     public CommentDTO getCommentById(Long id){
-        CommentDTO commentDTO = commentService.getCommentById(id);
-        commentDTO.setUserDto(userServiceImp.getUserById(commentDTO.getUserDto().getId()));
-        return commentDTO;
+        return commentService.getCommentById(id);
     }
 
     public List<CommentDTO> getCommentByProductId(Long id){
-        return commentService.getCommentByProductId(id).stream().peek(n -> n.setUserDto(userServiceImp.getUserById(n.getUserDto().getId()))).toList();
+        return commentService.getCommentByProductId(id);
     }
 
     public List<CommentDTO> getCommentByUserId(Long id){
-        return commentService.getCommentByUserId(id).stream().peek(n -> n.setUserDto(userServiceImp.getUserById(n.getUserDto().getId()))).toList();
+        return commentService.getCommentByUserId(id);
     }
 
     public CommentDTO updateComment(CommentUpdateDto commentUpdateDto){

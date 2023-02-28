@@ -14,7 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -30,7 +29,6 @@ public class OrderServiceImpl implements OrderService {
     public Long createOrder(OrderCreateDto orderCreateDto) {
         log.info("Создание нового заказа");
         Order order = orderMapper.orderCreateDtoToOrder(orderCreateDto);
-        order.setLocalDateTime(LocalDateTime.now());
         order.setStatus(Status.CREATE);
         return orderRepository.save(order).getId();
     }
@@ -51,7 +49,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDto> getOrdersByUserId(Long id) {
         log.info("Выдача заказа по пользователю");
-        return orderRepository.getOrdersByUserId(id).stream().map(orderMapper::orderToOrderDto).toList();
+        return orderRepository.getOrdersByUserIdOrderByCreateOrder(id).stream().map(orderMapper::orderToOrderDto).toList();
     }
 
     @Override

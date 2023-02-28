@@ -7,5 +7,7 @@ import java.util.List;
 
 public interface UserFoodRepository extends JpaRepository<UserProduct, Long> {
 
-    List<UserProduct> getUserProductsByUserIdAndVisible(Long id, boolean visible);
+    List<UserProduct> getUserProductsByUserIdAndVisibleIsTrue(Long id);
+
+    List<UserProduct> getUserProductsByOrderId(Long id);
 }

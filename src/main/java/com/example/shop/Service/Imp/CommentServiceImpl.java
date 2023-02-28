@@ -4,7 +4,6 @@ import com.example.shop.DTO.Comment.CommentCreateDto;
 import com.example.shop.DTO.Comment.CommentDTO;
 import com.example.shop.DTO.Comment.CommentUpdateDto;
 import com.example.shop.Entity.Comment;
-import com.example.shop.Entity.Comment_;
 import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.CommentMapper;
 import com.example.shop.Repository.CommentRepository;
@@ -14,11 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -30,9 +24,6 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
 
     private final CommentMapper commentMapper;
-
-    @PersistenceContext
-    EntityManager entityManager;
 
     @Override
     public void createComment(CommentCreateDto commentCreateDto) {
@@ -52,65 +43,30 @@ public class CommentServiceImpl implements CommentService {
     @Override
     public CommentDTO getCommentById(Long id) {
         log.info("Выдача коментария по id {}", id);
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<CommentDTO> cq = cb.createQuery(CommentDTO.class);
-        Root<Comment> root = cq.from(Comment.class);
-
-        cq.where(cb.equal(root.get(Comment_.id), id));
-
-        cq.orderBy(cb.desc(root.get(Comment_.localDateTime)));
-
-        cq.multiselect(
-                root.get(Comment_.id),
-                root.get(Comment_.productId),
-                root.get(Comment_.userId),
-                root.get(Comment_.localDateTime),
-                root.get(Comment_.comment),
-                root.get(Comment_.rating)
-        );
-        return entityManager.createQuery(cq).getSingleResult();
+        return commentMapper
+                .commentToCommentDto(commentRepository
+                        .findById(id)
+                        .orElseThrow(() -> {
+                            throw new NoFoundException("Коментарий не найден");
+                        }));
     }
 
     @Override
     public List<CommentDTO> getCommentByProductId(Long id) {
         log.info("Выдача коментарий по продукту с id {}", id);
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<CommentDTO> cq = cb.createQuery(CommentDTO.class);
-        Root<Comment> root = cq.from(Comment.class);
-
-        cq.where(cb.equal(root.get(Comment_.productId), id));
-
-        cq.orderBy(cb.desc(root.get(Comment_.localDateTime)));
-
-        cq.multiselect(
-                root.get(Comment_.id),
-                root.get(Comment_.productId),
-                root.get(Comment_.userId),
-                root.get(Comment_.localDateTime),
-                root.get(Comment_.comment),
-                root.get(Comment_.rating)
-        );
-        return entityManager.createQuery(cq).getResultList();
+        return commentRepository.getCommentsByProductIdOrderByLocalDateTime(id)
+                .stream()
+                .map(commentMapper::commentToCommentDto)
+                .toList();
     }
 
     @Override
     public List<CommentDTO> getCommentByUserId(Long id) {
         log.info("Выдача коментариев по пользевателю с id {}", id);
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<CommentDTO> cq = cb.createQuery(CommentDTO.class);
-        Root<Comment> root = cq.from(Comment.class);
-
-        cq.where(cb.equal(root.get(Comment_.userId), id));
-
-        cq.multiselect(
-                root.get(Comment_.id),
-                root.get(Comment_.productId),
-                root.get(Comment_.userId),
-                root.get(Comment_.localDateTime),
-                root.get(Comment_.comment),
-                root.get(Comment_.rating)
-        );
-        return entityManager.createQuery(cq).getResultList();
+        return commentRepository.getCommentsByUserIdOrderByLocalDateTime(id)
+                .stream()
+                .map(commentMapper::commentToCommentDto)
+                .toList();
     }
 
     @Override
@@ -119,10 +75,10 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentUpdateDto.getId()).orElseThrow(() -> {
             throw new NoFoundException("Коментарий не найден");
         });
-        if(commentUpdateDto.getComment() != null){
+        if (commentUpdateDto.getComment() != null) {
             comment.setComment(commentUpdateDto.getComment());
         }
-        if(commentUpdateDto.getRating() != null){
+        if (commentUpdateDto.getRating() != null) {
             comment.setRating(commentUpdateDto.getRating());
         }
         return commentMapper.commentToCommentDto(commentRepository.save(comment));

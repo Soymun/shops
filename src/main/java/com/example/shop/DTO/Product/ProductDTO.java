@@ -1,18 +1,13 @@
 package com.example.shop.DTO.Product;
 
-import com.example.shop.DTO.TypeOfFood.TypeOfFoodDto;
-import com.example.shop.Entity.Comment;
-import com.example.shop.Entity.TypeOfFood;
 import com.example.shop.Entity.TypeOfWeight;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-
-import javax.persistence.*;
-import java.util.List;
+import lombok.RequiredArgsConstructor;
 @Data
 @AllArgsConstructor
-@NoArgsConstructor
+@RequiredArgsConstructor
 public class ProductDTO {
 
     private Long id;

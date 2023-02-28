@@ -4,16 +4,18 @@ package com.example.shop.Entity;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "orders")
 @Getter
 @Setter
-@ToString
 @RequiredArgsConstructor
 public class Order {
 
@@ -30,5 +32,10 @@ public class Order {
 
     private Status status;
 
-    private LocalDateTime localDateTime;
+    @Fetch(value = FetchMode.JOIN)
+    @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
+    private List<UserProduct> userFoodDtos;
+
+    @CreationTimestamp
+    private LocalDateTime createOrder;
 }

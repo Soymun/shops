@@ -3,10 +3,7 @@ package com.example.shop.Service.Imp;
 import com.example.shop.DTO.UserFood.UserFoodCreateDto;
 import com.example.shop.DTO.UserFood.UserFoodDto;
 import com.example.shop.DTO.UserFood.UserFoodUpdateDto;
-import com.example.shop.Entity.Product;
-import com.example.shop.Entity.Product_;
 import com.example.shop.Entity.UserProduct;
-import com.example.shop.Entity.UserProduct_;
 import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.UserFoodMapper;
 import com.example.shop.Repository.UserFoodRepository;
@@ -16,12 +13,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
-import javax.persistence.criteria.Subquery;
 import java.util.List;
 
 @Service
@@ -33,8 +24,6 @@ public class UserFoodServiceImp implements UserFoodService {
 
     private final UserFoodMapper userFoodMapper;
 
-    @PersistenceContext
-    EntityManager entityManager;
 
     @Override
     public void createUserFood(UserFoodCreateDto userFoodCreateDto) {
@@ -54,27 +43,9 @@ public class UserFoodServiceImp implements UserFoodService {
     @Override
     public UserFoodDto getUserFoodById(Long id) {
         log.info("Выдача еды пользователя по id");
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<UserFoodDto> cq = cb.createQuery(UserFoodDto.class);
-        Root<UserProduct> root = cq.from(UserProduct.class);
-
-        Subquery<Product> subquery = cq.subquery(Product.class);
-        Root<Product> subRoot = subquery.from(Product.class);
-
-        subquery.where(cb.equal(subRoot.get(Product_.id), root.get(UserProduct_.productId)));
-
-        subquery.select(subRoot);
-
-        cq.where(cb.equal(root.get(UserProduct_.id), id));
-
-        cq.multiselect(
-                root.get(UserProduct_.id),
-                root.get(UserProduct_.userId),
-                root.get(UserProduct_.productId),
-                root.get(UserProduct_.orderId),
-                root.get(UserProduct_.count)
-        );
-        return entityManager.createQuery(cq).getSingleResult();
+        return userFoodMapper.userProductToUserFoodDto(userFoodRepository.findById(id).orElseThrow(() -> {
+            throw new NoFoundException("Продукт пользователя не был найден");
+        }));
     }
 
     @Override
@@ -95,53 +66,26 @@ public class UserFoodServiceImp implements UserFoodService {
     @Override
     public List<UserFoodDto> getUserFoodByUserId(Long id) {
         log.info("Выдача еды пользователя по пользевателю с id");
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<UserFoodDto> cq = cb.createQuery(UserFoodDto.class);
-        Root<UserProduct> root = cq.from(UserProduct.class);
-
-        Subquery<Product> subquery = cq.subquery(Product.class);
-        Root<Product> subRoot = subquery.from(Product.class);
-
-        subquery.where(cb.equal(subRoot.get(Product_.id), root.get(UserProduct_.productId)));
-
-        subquery.select(subRoot);
-
-        cq.where(cb.and(cb.equal(root.get(UserProduct_.userId), id), cb.equal(root.get(UserProduct_.visible), true)));
-
-        cq.multiselect(
-                root.get(UserProduct_.id),
-                root.get(UserProduct_.userId),
-                root.get(UserProduct_.productId),
-                root.get(UserProduct_.orderId),
-                root.get(UserProduct_.count)
-        );
-        return entityManager.createQuery(cq).getResultList();
+        return userFoodRepository
+                .getUserProductsByUserIdAndVisibleIsTrue(id)
+                .stream()
+                .map(userFoodMapper::userProductToUserFoodDto).toList();
     }
 
     @Override
     public List<UserFoodDto> getUserFoodByOrderId(Long id) {
         log.info("Выдача еды пользователя по order id");
-        CriteriaBuilder cb = entityManager.getCriteriaBuilder();
-        CriteriaQuery<UserFoodDto> cq = cb.createQuery(UserFoodDto.class);
-        Root<UserProduct> root = cq.from(UserProduct.class);
-
-        cq.where(cb.equal(root.get(UserProduct_.orderId), id));
-
-        cq.multiselect(
-                root.get(UserProduct_.id),
-                root.get(UserProduct_.userId),
-                root.get(UserProduct_.productId),
-                root.get(UserProduct_.orderId),
-                root.get(UserProduct_.count)
-        );
-        return entityManager.createQuery(cq).getResultList();
+        return userFoodRepository
+                .getUserProductsByOrderId(id)
+                .stream()
+                .map(userFoodMapper::userProductToUserFoodDto).toList();
     }
 
     @Override
     public void setAllUserFoodUnVisible(Long userId, Long orderId) {
         log.info("Изменение видимости продуктов");
         List<UserProduct> userProducts = userFoodRepository
-                .getUserProductsByUserIdAndVisible(userId, true)
+                .getUserProductsByUserIdAndVisibleIsTrue(userId)
                 .stream().peek(n -> n.setVisible(false))
                 .peek(n -> n.setOrderId(orderId))
                 .toList();
