@@ -16,8 +16,6 @@ import com.example.shop.Service.Imp.DefaultEmailService;
 import com.example.shop.Service.Imp.UserServiceImp;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -35,8 +33,6 @@ public class AuthenticationFacade {
 
     private final PasswordEncoder passwordEncoder;
 
-    private final AuthenticationManager authenticationManager;
-
     private final JwtTokenProvider jwtTokenProvider;
 
     private final DefaultEmailService defaultEmailService;
@@ -53,7 +49,6 @@ public class AuthenticationFacade {
     public ResponseEntity<?> login(LoginDTO loginDTO) {
         try {
             User user = userServiceImp.findUserByEmail(loginDTO.getEmail());
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
             String token = jwtTokenProvider.createToken(user.getEmail(), user.getRole());
             Map<String, Object> map = new HashMap<>();
             map.put("id", user.getId());
@@ -79,8 +74,7 @@ public class AuthenticationFacade {
         }
     }
 
-    public ResponseEntity<?> activate(String uuid){
+    public void activate(String uuid){
         userServiceImp.activateUser(uuid);
-        return ResponseEntity.ok(ResponseDto.builder().data("Пользователь успешно активирован").build());
     }
 }
