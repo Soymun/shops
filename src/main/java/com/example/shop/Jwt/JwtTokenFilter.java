@@ -1,5 +1,7 @@
 package com.example.shop.Jwt;
 
+import com.example.shop.DTO.Security.PersonDetails;
+import com.example.shop.DTO.Security.UserPrincipalData;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.GenericFilterBean;
@@ -13,9 +15,11 @@ import java.io.IOException;
 
 public class JwtTokenFilter extends GenericFilterBean {
 
+    private final UserPrincipalData userPrincipalData;
     private final JwtTokenProvider jwtTokenProvider;
 
-    public JwtTokenFilter(JwtTokenProvider jwtTokenProvider) {
+    public JwtTokenFilter(UserPrincipalData userPrincipalData, JwtTokenProvider jwtTokenProvider) {
+        this.userPrincipalData = userPrincipalData;
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
@@ -26,6 +30,9 @@ public class JwtTokenFilter extends GenericFilterBean {
             Authentication authentication = jwtTokenProvider.authentication(token);
             if(authentication != null){
                 SecurityContextHolder.getContext().setAuthentication(authentication);
+                PersonDetails personDetails = (PersonDetails) authentication.getPrincipal();
+                userPrincipalData.setId(personDetails.getId());
+                userPrincipalData.setUserName(personDetails.getUsername());
             }
         }
         filterChain.doFilter(servletRequest, servletResponse);

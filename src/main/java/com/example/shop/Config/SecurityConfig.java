@@ -1,6 +1,7 @@
 package com.example.shop.Config;
 
 
+import com.example.shop.DTO.Security.UserPrincipalData;
 import com.example.shop.Jwt.JwtTokenConfig;
 import com.example.shop.Jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -22,6 +23,7 @@ import org.springframework.security.web.SecurityFilterChain;
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final JwtTokenProvider jwtTokenProvider;
+    private final UserPrincipalData userPrincipalData;
 
     @Bean
     public SecurityFilterChain configurer(HttpSecurity http) throws Exception {
@@ -31,7 +33,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests()
                 .antMatchers("/registration", "/login", "/swagger-ui/**", "/activate/**").permitAll()
                 .and()
-                .apply(new JwtTokenConfig(jwtTokenProvider));
+                .apply(new JwtTokenConfig(jwtTokenProvider, userPrincipalData));
         return http.build();
     }
 

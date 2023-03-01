@@ -1,11 +1,12 @@
-package com.example.shop.DTO;
+package com.example.shop.DTO.email;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 import java.util.List;
-import java.util.Map;
 
 @Data
+@AllArgsConstructor
 public class EmailContext {
 
     private String subject;

@@ -1,9 +1,11 @@
 package com.example.shop.Service.Imp;
 
+import com.example.shop.DTO.Security.UserPrincipalData;
 import com.example.shop.DTO.UserFood.UserFoodCreateDto;
 import com.example.shop.DTO.UserFood.UserFoodDto;
 import com.example.shop.DTO.UserFood.UserFoodUpdateDto;
 import com.example.shop.Entity.UserProduct;
+import com.example.shop.Exception.NoAccessOperation;
 import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.UserFoodMapper;
 import com.example.shop.Repository.UserFoodRepository;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -24,7 +27,7 @@ public class UserFoodServiceImp implements UserFoodService {
 
     private final UserFoodMapper userFoodMapper;
 
-
+    private final UserPrincipalData userPrincipalData;
     @Override
     public void createUserFood(UserFoodCreateDto userFoodCreateDto) {
         log.info("Сохранение пользователем продукта");
@@ -37,6 +40,9 @@ public class UserFoodServiceImp implements UserFoodService {
     @Transactional
     public void deleteUserFoodById(Long id) {
         log.info("Удаление пользователем продукта");
+        if(!Objects.equals(id, userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         userFoodRepository.deleteById(id);
     }
 
@@ -54,6 +60,9 @@ public class UserFoodServiceImp implements UserFoodService {
         UserProduct userProduct = userFoodRepository.findById(userFoodUpdateDto.getId()).orElseThrow(() -> {
             throw new NoFoundException("Продукт пользователя не найден");
         });
+        if(!Objects.equals(userProduct.getUserId(), userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         if (userFoodUpdateDto.getCount() != null) {
             userProduct.setCount(userFoodUpdateDto.getCount());
         }

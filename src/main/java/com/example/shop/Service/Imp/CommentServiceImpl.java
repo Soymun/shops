@@ -4,7 +4,9 @@ import com.example.shop.DTO.Comment.CommentCreateDto;
 import com.example.shop.DTO.Comment.CommentDTO;
 import com.example.shop.DTO.Comment.CommentUpdateDto;
 import com.example.shop.Entity.Comment;
+import com.example.shop.Exception.NoAccessOperation;
 import com.example.shop.Exception.NoFoundException;
+import com.example.shop.DTO.Security.UserPrincipalData;
 import com.example.shop.Mappers.CommentMapper;
 import com.example.shop.Repository.CommentRepository;
 import com.example.shop.Service.CommentService;
@@ -15,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -24,6 +27,8 @@ public class CommentServiceImpl implements CommentService {
     private final CommentRepository commentRepository;
 
     private final CommentMapper commentMapper;
+
+    private final UserPrincipalData userPrincipalData;
 
     @Override
     public void createComment(CommentCreateDto commentCreateDto) {
@@ -36,6 +41,9 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void deleteCommentById(Long id) {
+        if(!Objects.equals(id, userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         log.info("Удаление коментария с id {}", id);
         commentRepository.deleteById(id);
     }
@@ -75,6 +83,9 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = commentRepository.findById(commentUpdateDto.getId()).orElseThrow(() -> {
             throw new NoFoundException("Коментарий не найден");
         });
+        if(!Objects.equals(comment.getUserId(), userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         if (commentUpdateDto.getComment() != null) {
             comment.setComment(commentUpdateDto.getComment());
         }

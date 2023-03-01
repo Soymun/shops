@@ -5,6 +5,8 @@ import com.example.shop.DTO.Security.LoginDTO;
 import com.example.shop.DTO.Security.ReLoginDto;
 import com.example.shop.DTO.Security.RegDTO;
 import com.example.shop.DTO.User.UserCreateDto;
+import com.example.shop.DTO.email.ContextPage;
+import com.example.shop.DTO.email.EmailContext;
 import com.example.shop.Entity.User;
 import com.example.shop.Exception.FoundException;
 import com.example.shop.Exception.MyAuthenticationException;
@@ -20,7 +22,9 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import javax.mail.MessagingException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Component
@@ -36,13 +40,13 @@ public class AuthenticationFacade {
     private final JwtTokenProvider jwtTokenProvider;
 
     private final DefaultEmailService defaultEmailService;
-    public ResponseEntity<?> registration(RegDTO regDTO){
+    public ResponseEntity<?> registration(RegDTO regDTO) throws MessagingException {
         if(userServiceImp.foundTheUserByEmail(regDTO.getEmail())){
             throw new FoundException("Пользователь с таким email уже был зарегестрирован!!!");
         }
         UserCreateDto userCreateDto = new UserCreateDto(regDTO.getEmail(), passwordEncoder.encode(regDTO.getPassword()), regDTO.getName());
         String uuid = userServiceImp.saveUser(userCreateDto);
-        defaultEmailService.sendSimpleEmail(userCreateDto.getEmail(), "Activating mail", String.format("Click on this link to activate your email: http://localhost:8080/activate/%s", uuid));
+        defaultEmailService.sendSimpleEmail(new EmailContext("Link your email", "123", "321", "en", "registration", List.of(new ContextPage("ref",String.format("http://localhost:8080/activate/%s", uuid)), new ContextPage("text", userCreateDto.getUsername()))), userCreateDto.getEmail());
         return ResponseEntity.status(201).build();
     }
 

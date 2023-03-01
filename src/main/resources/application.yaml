@@ -17,13 +17,14 @@ spring:
     host: smtp.gmail.com
     username: burgerrusmain@gmail.com
     password:
+    port: 587
     properties:
       mail:
         smtp:
           auth: true
           starttls:
             enable: true
-    test-connection: false
+    test-connection: true
 
 jwt:
   token:

@@ -3,8 +3,10 @@ package com.example.shop.Service.Imp;
 import com.example.shop.DTO.Oder.OrderCreateDto;
 import com.example.shop.DTO.Oder.OrderDto;
 import com.example.shop.DTO.Oder.OrderUpdateDto;
+import com.example.shop.DTO.Security.UserPrincipalData;
 import com.example.shop.Entity.Order;
 import com.example.shop.Entity.Status;
+import com.example.shop.Exception.NoAccessOperation;
 import com.example.shop.Exception.NoFoundException;
 import com.example.shop.Mappers.OrderMapper;
 import com.example.shop.Repository.OrderRepository;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @Slf4j
@@ -24,6 +27,8 @@ public class OrderServiceImpl implements OrderService {
     private final OrderRepository orderRepository;
 
     private final OrderMapper orderMapper;
+
+    private final UserPrincipalData userPrincipalData;
 
     @Override
     public Long createOrder(OrderCreateDto orderCreateDto) {
@@ -37,6 +42,9 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void deleteOrderById(Long id) {
         log.info("Удаление заказа по id");
+        if(!Objects.equals(id, userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         orderRepository.deleteById(id);
     }
 

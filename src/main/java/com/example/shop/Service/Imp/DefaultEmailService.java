@@ -1,7 +1,7 @@
 package com.example.shop.Service.Imp;
 
-import com.example.shop.DTO.ContextPage;
-import com.example.shop.DTO.EmailContext;
+import com.example.shop.DTO.email.ContextPage;
+import com.example.shop.DTO.email.EmailContext;
 import com.example.shop.Entity.User;
 import com.example.shop.Repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -27,13 +27,20 @@ public class DefaultEmailService{
     private final UserRepository userRepository;
 
 
-    public void sendSimpleEmail(String toAddress, String subject, String message) {
+    public void sendSimpleEmail(EmailContext emailContext, String email) throws MessagingException {
 
-        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-        simpleMailMessage.setTo(toAddress);
-        simpleMailMessage.setSubject(subject);
-        simpleMailMessage.setText(message);
-        emailSender.send(simpleMailMessage);
+        MimeMessage message = emailSender.createMimeMessage();
+        MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(message,
+                MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
+                StandardCharsets.UTF_8.name());
+        Context context = new Context();
+        context.setVariables(emailContext.getContext().stream().collect(Collectors.toMap(ContextPage::getKey, ContextPage::getValue)));
+        String emailContent = templateEngine.process(emailContext.getTemplateLocation(), context);
+
+        mimeMessageHelper.setTo(email);
+        mimeMessageHelper.setSubject(emailContext.getSubject());
+        mimeMessageHelper.setText(emailContent, true);
+        emailSender.send(message);
     }
 
     public void sendMail(EmailContext email) throws MessagingException {
@@ -42,7 +49,7 @@ public class DefaultEmailService{
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
         Context context = new Context();
-        context.setVariables(email.getContext().stream().collect(Collectors.toMap(ContextPage::getKey, ContextPage::getValue)));
+//        context.setVariables(email.getContext().stream().collect(Collectors.toMap(ContextPage::getKey, ContextPage::getValue)));
         String emailContent = templateEngine.process(email.getTemplateLocation(), context);
 
         mimeMessageHelper.setTo(userRepository.getUsersByMailingListIsTrue().stream().map(User::getEmail).toArray(String[]::new));

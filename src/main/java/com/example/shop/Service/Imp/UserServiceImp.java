@@ -1,12 +1,15 @@
 package com.example.shop.Service.Imp;
 
+import com.example.shop.DTO.Security.PersonDetails;
 import com.example.shop.DTO.User.UserCreateDto;
 import com.example.shop.DTO.User.UserDto;
 import com.example.shop.DTO.User.UserUpdateDto;
 import com.example.shop.Entity.Role;
 import com.example.shop.Entity.User;
 import com.example.shop.Exception.ActivateIsFalse;
+import com.example.shop.Exception.NoAccessOperation;
 import com.example.shop.Exception.NoFoundException;
+import com.example.shop.DTO.Security.UserPrincipalData;
 import com.example.shop.Mappers.UserMapper;
 import com.example.shop.Repository.UserRepository;
 import com.example.shop.Service.UserService;
@@ -17,6 +20,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.UUID;
 
 @Service
@@ -27,10 +31,12 @@ public class UserServiceImp implements UserService {
     private final UserRepository userRepository;
     private final UserMapper userMapper;
 
+    private final UserPrincipalData userPrincipalData;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = findUserByEmail(username);
-        return new org.springframework.security.core.userdetails.User(user.getEmail(), user.getPassword(), user.getRole().simpleGrantedAuthorities());
+        return new PersonDetails(user.getId(), user.getEmail(), user.getPassword(), user.getRole());
     }
 
     @Override
@@ -59,6 +65,9 @@ public class UserServiceImp implements UserService {
         User findsUser = userRepository.findUserById(user.getId()).orElseThrow(() -> {
             throw new NoFoundException("Пользователь не был найден");
         });
+        if(!Objects.equals(findsUser.getId(), userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         if (user.getEmail() != null) {
             findsUser.setUsername(user.getEmail());
         }
@@ -103,6 +112,9 @@ public class UserServiceImp implements UserService {
     @Override
     @Transactional
     public void deleteUser(Long id) {
+        if(!Objects.equals(id, userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         log.info("Удаление пользователя с id {}", id);
         userRepository.deleteById(id);
     }
@@ -110,7 +122,7 @@ public class UserServiceImp implements UserService {
     @Override
     public boolean foundTheUserByEmail(String email) {
         log.info("Проверка пользователя");
-        return userRepository.findUserByEmailAndActivatedIsTrue(email).isPresent();
+        return userRepository.findUserByEmail(email).isPresent();
     }
 
     @Override

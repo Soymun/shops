@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins="http://localhost:3000")
@@ -19,7 +21,7 @@ public class AuthController {
 
     @ApiOperation(value = "Метод для регистрации пользователей.", notes = "Возвращает код 201")
     @PostMapping("/registration")
-    public ResponseEntity<?> registration(@RequestBody RegDTO regDTO){
+    public ResponseEntity<?> registration(@RequestBody RegDTO regDTO) throws MessagingException {
         return authenticationFacade.registration(regDTO);
     }
 
