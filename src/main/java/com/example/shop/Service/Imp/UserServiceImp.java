@@ -30,7 +30,6 @@ public class UserServiceImp implements UserService {
 
     private final UserRepository userRepository;
     private final UserMapper userMapper;
-
     private final UserPrincipalData userPrincipalData;
 
     @Override
@@ -42,6 +41,9 @@ public class UserServiceImp implements UserService {
     @Override
     public UserDto getUserById(Long id) {
         log.info("Выдача пользователя с id {}", id);
+        if(!Objects.equals(id, userPrincipalData.getId())){
+            throw new NoAccessOperation("Операция обновления запрещена");
+        }
         return userMapper
                 .userToUserDto(
                         userRepository

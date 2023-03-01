@@ -12,6 +12,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.mail.MessagingException;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -39,7 +41,8 @@ public class AuthController {
     }
 
     @GetMapping("/activate/{uuid}")
-    public ResponseEntity<?> activate(@PathVariable String uuid){
-        return authenticationFacade.activate(uuid);
+    public void activate(HttpServletResponse response, @PathVariable String uuid) throws IOException {
+        authenticationFacade.activate(uuid);
+        response.sendRedirect("/login");
     }
 }

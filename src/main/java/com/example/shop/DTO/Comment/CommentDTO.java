@@ -1,9 +1,8 @@
 package com.example.shop.DTO.Comment;
 
-import com.example.shop.DTO.User.UserDto;
+import com.example.shop.DTO.User.UserGetDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -17,7 +16,7 @@ public class CommentDTO {
 
     private Long productId;
 
-    private UserDto user;
+    private UserGetDto user;
 
     private LocalDateTime localDateTime;
 

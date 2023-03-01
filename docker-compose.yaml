@@ -19,6 +19,7 @@ services:
     restart: unless-stopped
     volumes:
       - ./src/main/resources/root:/src/main/resources/root
+      - ./src/main/resources/templates-2:/src/main/resources/templates-2
 
   postgres_db:
     image: postgres:11.8

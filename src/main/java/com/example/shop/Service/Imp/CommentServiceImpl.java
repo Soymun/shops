@@ -41,10 +41,10 @@ public class CommentServiceImpl implements CommentService {
     @Override
     @Transactional
     public void deleteCommentById(Long id) {
+        log.info("Удаление коментария с id {}", id);
         if(!Objects.equals(id, userPrincipalData.getId())){
             throw new NoAccessOperation("Операция обновления запрещена");
         }
-        log.info("Удаление коментария с id {}", id);
         commentRepository.deleteById(id);
     }
 

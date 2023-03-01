@@ -1,10 +1,8 @@
 package com.example.shop.DTO.UserFood;
 
-import com.example.shop.DTO.Product.ProductDTO;
-import com.example.shop.Entity.Product;
+import com.example.shop.DTO.Product.ProductGetDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 
 @Data
@@ -16,7 +14,7 @@ public class UserFoodDto {
 
     private Long userId;
 
-    private ProductDTO product;
+    private ProductGetDto product;
 
     private Long orderId;
 
