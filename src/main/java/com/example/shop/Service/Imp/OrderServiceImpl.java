@@ -57,7 +57,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<OrderDto> getOrdersByUserId(Long id) {
         log.info("Выдача заказа по пользователю");
-        return orderRepository.getOrdersByUserIdOrderByCreateOrder(id).stream().map(orderMapper::orderToOrderDto).toList();
+        return orderRepository.getOrdersByUserIdOrderByCreateOrderDesc(id).stream().map(orderMapper::orderToOrderDto).toList();
     }
 
     @Override

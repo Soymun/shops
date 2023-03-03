@@ -49,7 +49,9 @@ public class DefaultEmailService{
                 MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED,
                 StandardCharsets.UTF_8.name());
         Context context = new Context();
-//        context.setVariables(email.getContext().stream().collect(Collectors.toMap(ContextPage::getKey, ContextPage::getValue)));
+        if(email.getContext() != null && email.getContext().size() != 0) {
+            context.setVariables(email.getContext().stream().collect(Collectors.toMap(ContextPage::getKey, ContextPage::getValue)));
+        }
         String emailContent = templateEngine.process(email.getTemplateLocation(), context);
 
         mimeMessageHelper.setTo(userRepository.getUsersByMailingListIsTrue().stream().map(User::getEmail).toArray(String[]::new));
