@@ -1,0 +1,268 @@
+databaseChangeLog:
+  - changeSet:
+      id: 9
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - tableExists:
+            schemaName: public
+            tableName: type_of_food
+      changes:
+        - insert:
+            tableName: type_of_food
+            columns:
+              - column:
+                  name: name
+                  value: "бургир"
+        - insert:
+            tableName: type_of_food
+            columns:
+              - column:
+                  name: name
+                  value: "снеки"
+        - insert:
+            tableName: type_of_food
+            columns:
+              - column:
+                  name: name
+                  value: "ролл"
+  - changeSet:
+            id: 10
+            author: soymun
+            preConditions:
+              - onFail: MARK_RAN
+              - tableExists:
+                  schemaName: public
+                  tableName: products
+            changes:
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "бургир1"
+                    - column:
+                        name: about
+                        value: "Бургир с мясом"
+                    - column:
+                        name: type_of_food_id
+                        value: 1
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "бургир2"
+                    - column:
+                        name: about
+                        value: "Бургир с мясом"
+                    - column:
+                        name: type_of_food_id
+                        value: 1
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "бургир3"
+                    - column:
+                        name: about
+                        value: "Бургир с мясом"
+                    - column:
+                        name: type_of_food_id
+                        value: 1
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "картошка"
+                    - column:
+                        name: about
+                        value: "картошка"
+                    - column:
+                        name: type_of_food_id
+                        value: 2
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "картошка2"
+                    - column:
+                        name: about
+                        value: "картошка2"
+                    - column:
+                        name: type_of_food_id
+                        value: 2
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "картошка3"
+                    - column:
+                        name: about
+                        value: "картошка3"
+                    - column:
+                        name: type_of_food_id
+                        value: 2
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "бургер4"
+                    - column:
+                        name: about
+                        value: "Бургир с мясом"
+                    - column:
+                        name: type_of_food_id
+                        value: 1
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "бургер8"
+                    - column:
+                        name: about
+                        value: "Бургир с мясом"
+                    - column:
+                        name: type_of_food_id
+                        value: 1
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "ролл1"
+                    - column:
+                        name: about
+                        value: "ролл1"
+                    - column:
+                        name: type_of_food_id
+                        value: 3
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "ролл2"
+                    - column:
+                        name: about
+                        value: "ролл2"
+                    - column:
+                        name: type_of_food_id
+                        value: 3
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false
+              - insert:
+                  tableName: products
+                  columns:
+                    - column:
+                        name: name
+                        value: "ролл6"
+                    - column:
+                        name: about
+                        value: "ролл5"
+                    - column:
+                        name: type_of_food_id
+                        value: 3
+                    - column:
+                        name: price
+                        value: 500
+                    - column:
+                        name: type_of_weight
+                        value: 0
+                    - column:
+                        name: in_balls_program
+                        value: false

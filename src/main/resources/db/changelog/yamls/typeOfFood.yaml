@@ -1,0 +1,38 @@
+databaseChangeLog:
+  - changeSet:
+      id: 3
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: type_of_food
+      changes:
+        - createTable:
+            tableName: type_of_food
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: url_to_photo
+                  type: varchar(512)
+              - column:
+                  name: type_of_food_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: type_of_food
+            baseColumnNames: type_of_food_id
+            referencedTableName: type_of_food
+            referencedColumnNames: id
+            constraintName: type_of_food_root_fk

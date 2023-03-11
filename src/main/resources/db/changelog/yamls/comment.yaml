@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 5
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: comment
+      changes:
+        - createTable:
+            tableName: comment
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: comment
+                  type: varchar(255)
+              - column:
+                  name: local_date_time
+                  type: date
+              - column:
+                  name: product_id
+                  type: int
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: rating
+                  type: double
+        - addForeignKeyConstraint:
+            baseTableName: comment
+            baseColumnNames: product_id
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: product_comment_fk
+        - addForeignKeyConstraint:
+            baseTableName: comment
+            baseColumnNames: user_id
+            referencedTableName: person
+            referencedColumnNames: id
+            constraintName: user_comment_fk

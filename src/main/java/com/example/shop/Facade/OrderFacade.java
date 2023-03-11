@@ -37,4 +37,8 @@ public class OrderFacade {
     public OrderDto updateOrder(OrderUpdateDto orderUpdateDto){
         return orderService.updateOrder(orderUpdateDto);
     }
+
+    public List<OrderDto> getOrderByShopId(Long id){
+        return orderService.getOrderByShopId(id);
+    }
 }

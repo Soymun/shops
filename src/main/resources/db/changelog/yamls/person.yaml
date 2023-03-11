@@ -1,0 +1,56 @@
+databaseChangeLog:
+  - changeSet:
+      id: 1
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: person
+      changes:
+        - createTable:
+            tableName: person
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: email
+                  type: varchar(50)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: password
+                  type: varchar(512)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: username
+                  type: varchar(50)
+              - column:
+                  name: balls
+                  type: int
+              - column:
+                  name: role
+                  type: int
+              - column:
+                  name: rating
+                  type: int
+              - column:
+                  name: mailing_list
+                  type: boolean
+                  constraints:
+                    - default: false
+              - column:
+                  name: activated
+                  type: boolean
+                  constraints:
+                    - default: false
+              - column:
+                  name: uuid
+                  type: varchar(512)

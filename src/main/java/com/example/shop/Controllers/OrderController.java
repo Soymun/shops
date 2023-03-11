@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigInteger;
+
 @RestController
 @RequiredArgsConstructor
 @CrossOrigin(origins="http://localhost:3000")
@@ -38,6 +40,12 @@ public class OrderController {
     @GetMapping("/order/{id}")
     public ResponseEntity<?> getOrderById(@PathVariable Long id){
         return ResponseEntity.ok(ResponseDto.builder().data(orderService.getOrderById(id)).build());
+    }
+
+    @ApiOperation(value = "Метод для получения заказа по id магазина.", notes = "Могут пользоваться все.Возвращает OrderDto")
+    @GetMapping("/shop/order/{id}")
+    public ResponseEntity<?> getOrderByShopId(@PathVariable Long id){
+        return ResponseEntity.ok(ResponseDto.builder().data(orderService.getOrderByShopId(id)).build());
     }
 
     @ApiOperation(value = "Метод для получения заказов по user id.", notes = "Могут пользоваться все.Возвращает list OrderDto")

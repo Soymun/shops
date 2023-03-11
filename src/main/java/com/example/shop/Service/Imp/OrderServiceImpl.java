@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public void deleteOrderById(Long id) {
         log.info("Удаление заказа по id");
-        if(!Objects.equals(id, userPrincipalData.getId())){
+        if (!Objects.equals(id, userPrincipalData.getId())) {
             throw new NoAccessOperation("Операция обновления запрещена");
         }
         orderRepository.deleteById(id);
@@ -52,7 +52,9 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public OrderDto getOrderById(Long id) {
         log.info("Выдача заказа по id");
-        return orderMapper.orderToOrderDto(orderRepository.findById(id).orElseThrow(() -> {throw new NoFoundException("Заказ не нйден");}));
+        return orderMapper.orderToOrderDto(orderRepository.findById(id).orElseThrow(() -> {
+            throw new NoFoundException("Заказ не нйден");
+        }));
     }
 
     @Override
@@ -65,10 +67,18 @@ public class OrderServiceImpl implements OrderService {
     @Transactional
     public OrderDto updateOrder(OrderUpdateDto orderUpdateDto) {
         log.info("Изменение заказа");
-        Order order = orderRepository.findById(orderUpdateDto.getId()).orElseThrow(() -> {throw new NoFoundException("Заказ не нйден");});
-        if(orderUpdateDto.getStatus() != null){
+        Order order = orderRepository.findById(orderUpdateDto.getId()).orElseThrow(() -> {
+            throw new NoFoundException("Заказ не нйден");
+        });
+        if (orderUpdateDto.getStatus() != null) {
             order.setStatus(orderUpdateDto.getStatus());
         }
         return orderMapper.orderToOrderDto(orderRepository.save(order));
+    }
+
+    @Override
+    public List<OrderDto> getOrderByShopId(Long shopId) {
+        log.info("Выдача заказов в магазине с id {}", shopId);
+        return orderRepository.getOrdersByShopIdAndStatusOrderByCreateOrder(shopId, Status.COLLECT).stream().map(orderMapper::orderToOrderDto).toList();
     }
 }

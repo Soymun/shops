@@ -19,4 +19,6 @@ public interface OrderService {
     List<OrderDto> getOrdersByUserId(Long id);
 
     OrderDto updateOrder(OrderUpdateDto orderUpdateDto);
+
+    List<OrderDto> getOrderByShopId(Long shopId);
 }

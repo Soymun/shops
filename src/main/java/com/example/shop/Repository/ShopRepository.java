@@ -1,0 +1,11 @@
+package com.example.shop.Repository;
+
+import com.example.shop.Entity.Shop;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface ShopRepository extends JpaRepository<Shop, Long> {
+
+    List<Shop> getShopsByCity(String city);
+}

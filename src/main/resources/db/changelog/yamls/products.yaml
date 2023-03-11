@@ -1,0 +1,59 @@
+databaseChangeLog:
+  - changeSet:
+      id: 4
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: products
+      changes:
+        - createTable:
+            tableName: products
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: name
+                  type: varchar(255)
+                  constraints:
+                    unique: true
+                    nullable: false
+              - column:
+                  name: url_to_png_file
+                  type: varchar(512)
+              - column:
+                  name: about
+                  type: varchar(512)
+              - column:
+                  name: weight
+                  type: double
+              - column:
+                  name: balls_price
+                  type: int
+              - column:
+                  name: type_of_weight
+                  type: int
+              - column:
+                  name: in_balls_program
+                  type: boolean
+              - column:
+                  name: price
+                  type: int
+              - column:
+                  name: calories
+                  type: double
+              - column:
+                  name: type_of_food_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: products
+            baseColumnNames: type_of_food_id
+            referencedTableName: type_of_food
+            referencedColumnNames: id
+            constraintName: type_of_food_product_fk

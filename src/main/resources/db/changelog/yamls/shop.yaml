@@ -1,0 +1,47 @@
+databaseChangeLog:
+  - changeSet:
+      id: 2
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: shop
+      changes:
+        - createTable:
+            tableName: shop
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: city
+                  type: varchar(255)
+              - column:
+                  name: street
+                  type: varchar(512)
+              - column:
+                  name: house
+                  type: varchar(512)
+              - column:
+                  name: number_house
+                  type: varchar(512)
+              - column:
+                  name: cord_x
+                  type: double
+              - column:
+                  name: cord_y
+                  type: double
+              - column:
+                  name: open
+                  type: time
+              - column:
+                  name: close
+                  type: time
+              - column:
+                  name: phone
+                  type: varchar(512)

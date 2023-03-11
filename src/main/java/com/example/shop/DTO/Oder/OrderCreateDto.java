@@ -10,4 +10,6 @@ import lombok.RequiredArgsConstructor;
 public class OrderCreateDto {
 
     private Long userId;
+
+    private Long shopId;
 }

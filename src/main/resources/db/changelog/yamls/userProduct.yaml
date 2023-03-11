@@ -1,0 +1,53 @@
+databaseChangeLog:
+  - changeSet:
+      id: 7
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: user_product
+      changes:
+        - createTable:
+            tableName: user_product
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: order_id
+                  type: int
+              - column:
+                  name: visible
+                  type: boolean
+              - column:
+                  name: product_id
+                  type: int
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: count
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: user_product
+            baseColumnNames: product_id
+            referencedTableName: products
+            referencedColumnNames: id
+            constraintName: user_product_comment_fk
+        - addForeignKeyConstraint:
+            baseTableName: user_product
+            baseColumnNames: user_id
+            referencedTableName: person
+            referencedColumnNames: id
+            constraintName: user_user_product_fk
+        - addForeignKeyConstraint:
+            baseTableName: user_product
+            baseColumnNames: order_id
+            referencedTableName: orders
+            referencedColumnNames: id
+            constraintName: user_product_order_fk

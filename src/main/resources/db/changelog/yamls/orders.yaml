@@ -1,0 +1,44 @@
+databaseChangeLog:
+  - changeSet:
+      id: 6
+      author: soymun
+      preConditions:
+        - onFail: MARK_RAN
+        - not_table_exists:
+            schemaName: public
+            tableName: orders
+      changes:
+        - createTable:
+            tableName: orders
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: create_order
+                  type: date
+              - column:
+                  name: status
+                  type: int
+              - column:
+                  name: user_id
+                  type: int
+              - column:
+                  name: shop_id
+                  type: int
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: user_id
+            referencedTableName: person
+            referencedColumnNames: id
+            constraintName: person_order_fk
+        - addForeignKeyConstraint:
+            baseTableName: orders
+            baseColumnNames: shop_id
+            referencedTableName: shop
+            referencedColumnNames: id
+            constraintName: shop_order_fk

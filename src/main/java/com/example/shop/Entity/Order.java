@@ -32,6 +32,13 @@ public class Order {
 
     private Status status;
 
+    @Column(name = "shop_id")
+    private Long shopId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "shop_id", insertable = false, updatable = false)
+    private Shop shop;
+
     @Fetch(value = FetchMode.JOIN)
     @OneToMany(mappedBy = "order", fetch = FetchType.EAGER)
     private List<UserProduct> userFoodDtos;
