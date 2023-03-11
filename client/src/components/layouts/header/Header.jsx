@@ -16,7 +16,7 @@ const Header = () => {
                     </button>
                     <div className={classes.city}>
                         <div className={classes.citySelect}>в ресторане</div>
-                        <div className={classes.selectedCity}>Для заказа выберите ресторан</div>
+                        <NavLink to={'/map'} className={classes.selectedCity}>Для заказа выберите ресторан</NavLink>
                     </div>
                     <div className={classes.search}>
                         <input className={classes.searchInput} placeholder='Введите название блюда' type="text"/>
