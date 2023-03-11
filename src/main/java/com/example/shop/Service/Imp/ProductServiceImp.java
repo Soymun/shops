@@ -91,12 +91,14 @@ public class ProductServiceImp implements ProductService {
     }
 
     @Override
+    @Transactional
     public Long save(ProductCreateDto product) {
         log.info("Солхранение продукта {}", product.getName());
         return repository.save(productsMapper.productCreateDtoToProduct(product)).getId();
     }
 
     @Override
+    @Transactional
     public ProductDTO updateProduct(ProductUpdateDto productUpdateDto) {
         log.info("Изменение продукта");
         Product product = repository.findProductById(productUpdateDto.getId()).orElseThrow(() -> {

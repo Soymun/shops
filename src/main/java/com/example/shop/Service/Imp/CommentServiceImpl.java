@@ -31,6 +31,7 @@ public class CommentServiceImpl implements CommentService {
     private final UserPrincipalData userPrincipalData;
 
     @Override
+    @Transactional
     public void createComment(CommentCreateDto commentCreateDto) {
         log.info("Сохранение коментария");
         Comment comment = commentMapper.commentCreateDtoToComment(commentCreateDto);
@@ -78,6 +79,7 @@ public class CommentServiceImpl implements CommentService {
     }
 
     @Override
+    @Transactional
     public CommentDTO updateComment(CommentUpdateDto commentUpdateDto) {
         log.info("Изменеие коментария");
         Comment comment = commentRepository.findById(commentUpdateDto.getId()).orElseThrow(() -> {

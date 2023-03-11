@@ -24,6 +24,7 @@ public class TypeOfFoodServiceImpl implements TypeOfFoodService {
     private final TypeOfFoodRepository typeOfFoodRepository;
 
     @Override
+    @Transactional
     public Long createTypeOfFood(TypeOfFoodCreateDto typeOfFoodCreateDto) {
         log.info("Сохранение типа продукта");
         return typeOfFoodRepository.save(typeOfFoodMapper.typeOfFoodCreateDtoToTypeOfFood(typeOfFoodCreateDto)).getId();
@@ -38,6 +39,7 @@ public class TypeOfFoodServiceImpl implements TypeOfFoodService {
     }
 
     @Override
+    @Transactional
     public TypeOfFoodDto updateTypeOfFood(TypeOfFoodUpdateDto typeOfFoodUpdateDto) {
         log.info("Изменение типа еды");
         TypeOfFood typeOfFood = typeOfFoodRepository.findById(typeOfFoodUpdateDto.getId()).orElseThrow(() -> {

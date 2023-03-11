@@ -31,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private final UserPrincipalData userPrincipalData;
 
     @Override
+    @Transactional
     public Long createOrder(OrderCreateDto orderCreateDto) {
         log.info("Создание нового заказа");
         Order order = orderMapper.orderCreateDtoToOrder(orderCreateDto);
@@ -61,6 +62,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public OrderDto updateOrder(OrderUpdateDto orderUpdateDto) {
         log.info("Изменение заказа");
         Order order = orderRepository.findById(orderUpdateDto.getId()).orElseThrow(() -> {throw new NoFoundException("Заказ не нйден");});

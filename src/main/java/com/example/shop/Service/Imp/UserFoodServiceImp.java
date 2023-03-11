@@ -29,6 +29,7 @@ public class UserFoodServiceImp implements UserFoodService {
 
     private final UserPrincipalData userPrincipalData;
     @Override
+    @Transactional
     public void createUserFood(UserFoodCreateDto userFoodCreateDto) {
         log.info("Сохранение пользователем продукта");
         UserProduct userProduct = userFoodMapper.userFoodCreateDtoToUserProduct(userFoodCreateDto);
@@ -55,6 +56,7 @@ public class UserFoodServiceImp implements UserFoodService {
     }
 
     @Override
+    @Transactional
     public UserFoodDto updateUserFood(UserFoodUpdateDto userFoodUpdateDto) {
         log.info("Изменение еды пользователя");
         UserProduct userProduct = userFoodRepository.findById(userFoodUpdateDto.getId()).orElseThrow(() -> {
@@ -91,6 +93,7 @@ public class UserFoodServiceImp implements UserFoodService {
     }
 
     @Override
+    @Transactional
     public void setAllUserFoodUnVisible(Long userId, Long orderId) {
         log.info("Изменение видимости продуктов");
         List<UserProduct> userProducts = userFoodRepository
